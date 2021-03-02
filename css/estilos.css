@@ -1,0 +1,23 @@
+
+#bienvenidos{
+	background: #B5D3E7;
+}
+
+.container{
+	overflow: hidden;
+	padding: 1em;
+}
+
+#actualizar{
+	margin-top: 10px;
+}
+
+#formulario-act{
+
+ 	padding: 100px;
+ 	background: lightblue;
+}
+
+#datos-ingreso{
+	margin: 10px;	
+}
