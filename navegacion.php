@@ -32,8 +32,8 @@
             Acciones
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Opcion 1</a></li>
-            <li><a class="dropdown-item" href="#">Opcion 2</a></li>
+            <li><a class="dropdown-item" href="botones.php">Opcion 1</a></li>
+            <li><a class="dropdown-item" href="display.php">Opcion 2</a></li>
             
           </ul>
         </li>

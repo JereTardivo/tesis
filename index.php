@@ -1,5 +1,11 @@
 <?php
 include("Conexion.php");
+$consultaTemp = "SELECT * FROM registros WHERE nombre = '/R501/temperatura'ORDER BY idRegistro DESC LIMIT 1";
+$resultado = mysqli_query ($conexion, $consultaTemp);
+$temperatura = mysqli_fetch_assoc($resultado);
+$consultaSwitch = "SELECT * FROM registros WHERE nombre = 'Switch' ORDER BY idRegistro DESC LIMIT 1";
+$resultado = mysqli_query ($conexion, $consultaSwitch);
+$Switch = mysqli_fetch_assoc($resultado);
 
 ?>
 <!DOCTYPE html>
@@ -12,7 +18,6 @@ include("Conexion.php");
     <script src="js/config.js" type="text/javascript"></script>
 	<title>Inicio</title>
 	
-    
     
     
 
@@ -104,7 +109,7 @@ include("Conexion.php");
         var payload = message.payloadString;
 
         $('#ws').prepend('<br>' + topic + ' = ' + payload + '');
-        if (message.destinationName == '/R501/' + 'temperatura') { //acá coloco el topic
+        if (message.destinationName == '/R501/temperatura') { //acá coloco el topic
             document.getElementById("temperatura").textContent = message.payloadString ;
         }
         if (message.destinationName == 'Switch') { //acá coloco el topic
@@ -137,8 +142,8 @@ include("Conexion.php");
       </div>
       <div>
         <a>Salida Digital: </a>
-        <button type='button' onclick='OnOff("ON")'>ON</button>
-        <button type='button' onclick='OnOff("OFF")'>OFF</button>
+        <button type='button' onclick='OnOff("Encendida")'>ON</button>
+        <button type='button' onclick='OnOff("Apagada")'>OFF</button>
       </div>
       <div>
       	<select id="mySelect" onchange="myFunction()">
@@ -157,11 +162,11 @@ include("Conexion.php");
       
       <div>
         <a>Temperatura: </a>
-        <a id ="temperatura">-</a>
+        <a id ="temperatura"><?php echo $temperatura["valor"] ?></a>
       </div>
       <div>
         <a>Switch: </a>
-        <a id ="switch">-</a>
+        <a id ="switch"><?php echo $Switch["valor"] ?></a>
       </div>
       <div>
         <a>Color: </a>
