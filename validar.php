@@ -12,9 +12,9 @@ $resultado = mysqli_query($conexion, $consulta);
 $filas = mysqli_num_rows($resultado);
 
 
-if($filas>0){
+if ($filas > 0) {
 	$_SESSION['usuario'] = $usuario;
-	
+
 	header("Location: index.php");
 } else {
 	echo "<script>alert('Los datos no son correctos')</script>";
