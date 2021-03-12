@@ -63,8 +63,8 @@ $Switch = mysqli_fetch_assoc($resultado);
     function OnOff() {
 
         if (estadoSwitch == "Apagada") {
-            message = new Paho.Message("Encendida");
-            message.destinationName = 'Switch';
+            message = new Paho.Message("Encendida"); //PAYLOAD
+            message.destinationName = 'Switch'; //TOPIC
             mqtt.send(message);
         } else if (estadoSwitch == "Encendida") {
             message = new Paho.Message("Apagada");
@@ -73,6 +73,20 @@ $Switch = mysqli_fetch_assoc($resultado);
         }
 
 
+    };
+
+    function onMessageArrived(message) {
+
+        var topic = message.destinationName;
+        var payload = message.payloadString;
+
+        $('#ws').prepend('<br>' + topic + ' = ' + payload + '');
+
+        if (message.destinationName == 'Switch') { //acá coloco el topic
+            document.getElementById("switch").textContent = message.payloadString;
+            estadoSwitch = message.payloadString;
+
+        }
     };
     ////////////////
 
@@ -85,25 +99,10 @@ $Switch = mysqli_fetch_assoc($resultado);
         $('#topic').val(topic);
     }
 
-
-
     function onConnectionLost(response) {
         setTimeout(MQTTconnect, reconnectTimeout);
         $('#status').val("connection lost: " + responseObject.errorMessage + ". Reconnecting");
 
-    };
-
-    function onMessageArrived(message) {
-
-        var topic = message.destinationName;
-        var payload = message.payloadString;
-
-        $('#ws').prepend('<br>' + topic + ' = ' + payload + '');
-        if (message.destinationName == 'Switch') { //acá coloco el topic
-            document.getElementById("switch").textContent = message.payloadString;
-            estadoSwitch = message.payloadString;
-
-        }
     };
 
     $(document).ready(function() {
@@ -120,10 +119,10 @@ $Switch = mysqli_fetch_assoc($resultado);
         <a>Pieza </a><br>
         <label class="switch-button">
 
-            <input type="checkbox" name="switch-button" id="switch-label" class="switch-button__checkbox" onclick='OnOff()' <?php if ($Switch["valor"] === "Encendida") { ?> checked <?php } ?> >
+            <input type="checkbox" name="switch-button" id="switch-label" class="switch-button__checkbox" onclick='OnOff()' <?php if ($Switch["valor"] === "Encendida") { ?> checked <?php } ?>>
             <label for="switch-label" class="switch-button__label"></label>
 
-            
+
 
         </label><br>
         <a id="switch"><?php echo $Switch["valor"] ?></a>
