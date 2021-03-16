@@ -19,6 +19,9 @@ $Switch = mysqli_fetch_assoc($resultado);
 
     
     </head>
+    <?php 
+        include("navegacion.php"); 
+        ?>
     <script type="text/javascript">
     var mqtt;
     var reconnectTimeout = 2000;
@@ -58,6 +61,8 @@ $Switch = mysqli_fetch_assoc($resultado);
     ///////////ACCIONES
     estadoSwitch = "<?php echo $Switch["valor"]?>";
 
+    estadoSemafoto = "";
+
     function OnOff(){
 
         if (estadoSwitch == "Apagada"){
@@ -73,6 +78,15 @@ $Switch = mysqli_fetch_assoc($resultado);
 
 
       };
+      function myFunction() {
+      var x = document.getElementById("Select").value;
+      if (x!="") {
+        message = new Paho.Message(x);
+        message.destinationName = 'Semaforo'
+        mqtt.send(message);
+        }
+              
+    }
     ////////////////
     
     function onConnect() {
@@ -97,9 +111,30 @@ $Switch = mysqli_fetch_assoc($resultado);
 
         $('#ws').prepend('<br>' + topic + ' = ' + payload + '');
         if (message.destinationName == 'Switch') { //acá coloco el topic
-            document.getElementById("switch").textContent = message.payloadString ;
+            //document.getElementById("switch").textContent = message.payloadString ;
             estadoSwitch = message.payloadString;
+            if (message.payloadString == 'Apagada') {
+                document.getElementById("luz").style.backgroundColor = "#7e7e7e";
+            }
+            if (message.payloadString == 'Encendida') {
+                document.getElementById("luz").style.backgroundColor = "green";
+            }
             
+        }
+        if (message.destinationName == 'Semaforo') { //acá coloco el topic
+            if (message.payloadString == 'Rojo') {
+                //document.getElementById("color").textContent = message.payloadString ;
+                document.getElementById("color").style.backgroundColor = "red";
+            }
+            if (message.payloadString == 'Amarillo') {
+                //document.getElementById("color").textContent = message.payloadString ;
+                document.getElementById("color").style.backgroundColor = "yellow";
+            }
+            if (message.payloadString == 'Verde') {
+                //document.getElementById("color").textContent = message.payloadString ;
+                document.getElementById("color").style.backgroundColor = "green";
+            }
+
         }
     };
 
@@ -109,22 +144,33 @@ $Switch = mysqli_fetch_assoc($resultado);
     </script>
 
     <body>
-        <?php 
-        include("navegacion.php"); 
-        ?>
-
-        <div align="center">
+        
+        <div style="margin-left: 5%;">
         <a>Pieza </a><br>
         <label class="switch-button">
             
                 <input type="checkbox" name="switch-button" id="switch-label" class="switch-button__checkbox" onclick='OnOff()' <?php if ($Switch["valor"] === "Encendida") {?> checked <?php } ?> >
                 <label for="switch-label" class="switch-button__label"></label>
                 
-        </label><br>
-        <a id ="switch"><?php echo $Switch["valor"] ?></a>
+        </label>
+       
+        <br>
+        
+        
 
         </div>
-            
+        <div style="margin-left: 5%;">
+            <select id="Select" onchange="myFunction()">
+              <option></option>
+              <option value="Rojo" style="background-color: red;">PELIGRO</option>
+              <option value="Amarillo" style="background-color: yellow;">CUIDADO</option>
+              <option value="Verde" style="background-color: green;">NORMAL</option>
+            </select>
+           
+          </div>
+          <br>
+           <label id="luz" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px;"></label>
+            <label id="color" style="width: 50px; height: 50px;border-radius: 50%;"></label>
 
 </body>
 

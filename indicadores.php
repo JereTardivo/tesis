@@ -6,6 +6,9 @@ $temperatura = mysqli_fetch_assoc($resultado);
 $consultaHum = "SELECT * FROM registros WHERE nombre = 'Humedad'ORDER BY idRegistro DESC LIMIT 1";
 $resultado = mysqli_query ($conexion, $consultaHum);
 $humedad = mysqli_fetch_assoc($resultado);
+$consultaCont = "SELECT * FROM registros WHERE nombre = 'Conteo'ORDER BY idRegistro DESC LIMIT 1";
+$resultado = mysqli_query ($conexion, $consultaCont);
+$conteo = mysqli_fetch_assoc($resultado);
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,43 +37,42 @@ $humedad = mysqli_fetch_assoc($resultado);
     	include("navegacion.php")
     	 ?>
     	
-    	 <div>
-			<label id="tempe" style="width: 49%;"></label><br>
-			<label id="container" style="width: 50%; height: 200px;"></label>
-		</div>	
-        
+    	 	
+        <label id="tempe"></label>
 		<label id="hume"></label>
 		<label id="cont"></label>
-
-		
+		<label id="contluz"></label>
        	
-
       </div>
         
        	<script type="text/javascript">
     	var t = new JustGage({
 		    id: "tempe",
-		    value: <?php echo $temperatura["valor"]?>,
+		    value: 0, //<?php echo $temperatura["valor"]?>,
 		    min: 0,
-		    max: 100,
-		    levelColors: ["blue"],
+		    max: 45,
 		    title: "Temperatura"
 		  });
 		  var h = new JustGage({
 		    id: "hume",
-		    value: <?php echo $humedad["valor"]?>,
+		    value: 0, //<?php echo $humedad["valor"]?>,
 		    min: 0,
-		    max: 100,
-		    levelColors: ["red"],
+		    max: 100,		    
 		    title: "Humedad"
 		  });  
 		  var c = new JustGage({
 		    id: "cont",
+		    value: 0, //<?php echo $conteo["valor"]?>,
+		    min: 0,
+		    max: 20,
+		    title: "Conteo"
+		  });  
+		  var cl = new JustGage({
+		    id: "contluz",
 		    value: 0,
 		    min: 0,
-		    max: 100,
-		    levelColors: ["green"],
-		    title: "Conteo"
+		    max: 20,
+		    title: "Conteo Luz"
 		  });  
 	    
 	    var mqtt;
@@ -112,7 +114,8 @@ $humedad = mysqli_fetch_assoc($resultado);
 	    
 	    temperaturas = "<?php echo $temperatura["valor"]?>";
 		humedad = "<?php echo $humedad["valor"]?>";
-		conteo ="0";
+		conteo ="<?php echo $conteo["valor"]?>";
+		conteoluz = 0;
 
 	    
 		  
@@ -135,6 +138,10 @@ $humedad = mysqli_fetch_assoc($resultado);
 			if (message.destinationName == 'Conteo') { 
 				conteo = parseInt(message.payloadString);
 				c.refresh(message.payloadString);
+			}
+			if (message.destinationName == 'ConteoLuz') { 
+				conteoluz = parseInt(message.payloadString);
+				cl.refresh(message.payloadString);
 			}
 
 			};
@@ -161,94 +168,7 @@ $humedad = mysqli_fetch_assoc($resultado);
 	    $(document).ready(function() {
 	        MQTTconnect();
 	    });  
-	    ///////////////////HIGHCHART
-	    Highcharts.chart('container', {
-	    chart: {
-	        type: 'spline',
-	        animation: Highcharts.svg, // don't animate in old IE
-	        marginRight: 10,
-	        events: {
-	            load: function () {
-
-	                // set up the updating of the chart each second
-	                var series = this.series[0];
-	                setInterval(function () {
-	                    var x = (new Date()).getTime(), // current time
-	                        y = temperaturas;
-	                    series.addPoint([x, y], true, true);
-	                }, 5000);
-	            }
-	        }
-	    },
-
-	    time: {
-	        useUTC: false
-	    },
-
-	    title: {
-	        text: 'Grafico'
-	    },
-
-	    accessibility: {
-	        announceNewData: {
-	            enabled: true,
-	            minAnnounceInterval: 15000,
-	            announcementFormatter: function (allSeries, newSeries, newPoint) {
-	                if (newPoint) {
-	                    return 'New point added. Value: ' + newPoint.y;
-	                }
-	                return false;
-	            }
-	        }
-	    },
-
-	    xAxis: {
-	        type: 'datetime',
-	        tickPixelInterval: 150
-	    },
-
-	    yAxis: {
-	        title: {
-	            text: 'Value'
-	        },
-	        plotLines: [{
-	            value: 0,
-	            width: 1,
-	            color: '#808080'
-	        }]
-	    },
-
-	    tooltip: {
-	        headerFormat: '<b>{series.name}</b><br/>',
-	        pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
-	    },
-
-	    legend: {
-	        enabled: false
-	    },
-
-	    exporting: {
-	        enabled: false
-	    },
-
-	    series: [{
-	        name: 'Random data',
-	        data: (function () {
-	            // generate an array of random data
-	            var data = [],
-	                time = (new Date()).getTime(),
-	                i;
-
-	            for (i = -19; i <= 0; i += 1) {
-	                data.push({
-	                    x: time + i * 1000,
-	                    y: <?php echo $temperatura["valor"]?>
-	                });
-	            }
-	            return data;
-	        }())
-	    }]
-	});
+	    
 	    
     </script>
        

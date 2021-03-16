@@ -1,18 +1,11 @@
-
-
-
 <?php
 	session_start();
-	
 	error_reporting(0);
 	$varsesion = $_SESSION['usuario'];
 	$usuario = $_SESSION['usuario'];
 	if($varsesion == null || $varsesion = '') {
-		
 		header("Location: ingreso.php");
 		die();
-
-
 	}
 	
 ?>
@@ -34,7 +27,8 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="botones.php">Opcion 1</a></li>
             <li><a class="dropdown-item" href="display.php">Opcion 2</a></li>
-            
+            <li><a class="dropdown-item" href="datosingreso.php">Ver ingresos</a></li>
+            <li><a class="dropdown-item" href="datosregistros.php">Ver registros</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -42,8 +36,9 @@
             Ver datos
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Opción 1</a></li>
-            <li><a class="dropdown-item" href="#">Opcion 2</a></li>
+            <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
+            <li><a class="dropdown-item" href="graficos.php">Graficos</a></li>
+            
             
           </ul>
         </li>

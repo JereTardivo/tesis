@@ -73,7 +73,7 @@ $Switch = mysqli_fetch_assoc($resultado);
       function captar(){
       	var x = document.getElementById("myDato").value;
         message = new Paho.Message(x);
-        message.destinationName = 'Dato'
+        message.destinationName = ''
         mqtt.send(message);
       };
       function myFunction() {
