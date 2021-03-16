@@ -1,5 +1,5 @@
 
-host = '192.168.1.27';	// hostname or IP address
+host = '192.168.100.16';	// hostname or IP address
 
 port = 9001;
 topic = '#';		// topic to subscribe to

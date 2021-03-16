@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<title>Ingreso</title>
 
 </head>
+
 <body>
 	<div align="center" id="formulario-act">
 		<form action="validar.php" method="post">
@@ -16,8 +18,9 @@
 			<br>
 			<input type="submit" name="ingresar" value="Ingresar" class="btn btn-primary">
 		</form>
-		
+
 	</div>
 
 </body>
+
 </html>
