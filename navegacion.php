@@ -1,13 +1,13 @@
 <?php
-	session_start();
-	error_reporting(0);
-	$varsesion = $_SESSION['usuario'];
-	$usuario = $_SESSION['usuario'];
-	if($varsesion == null || $varsesion = '') {
-		header("Location: ingreso.php");
-		die();
-	}
-	
+session_start();
+error_reporting(0);
+$varsesion = $_SESSION['usuario'];
+$usuario = $_SESSION['usuario'];
+if ($varsesion == null || $varsesion = '') {
+  header("Location: ingreso.php");
+  die();
+}
+
 ?>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <script src="js/bootstrap.bundle.min.js"></script>
@@ -19,7 +19,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Acciones
@@ -38,15 +38,15 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
             <li><a class="dropdown-item" href="graficos.php">Graficos</a></li>
-            
-            
+
+
           </ul>
         </li>
-        
+
       </ul>
       <form class="d-flex">
-             
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><?php echo $usuario?></a>
+
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><?php echo $usuario ?></a>
         <a href="cerrar_sesion.php" class="btn btn-outline-danger">Salir</a>
       </form>
     </div>
