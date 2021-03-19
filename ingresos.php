@@ -1,7 +1,6 @@
 <?php
 include("Conexion.php");
 $fecha = $_POST['fecha'];
-///2021-03-14 11:41:33
 $consulta = "SELECT * FROM ingresos WHERE DATE_FORMAT(fecha, '%Y-%m-%d') = '$fecha'";
 if ($fecha == null) {
 	$consulta = "SELECT * FROM ingresos WHERE 1";

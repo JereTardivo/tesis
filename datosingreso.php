@@ -1,5 +1,6 @@
 <?php
 include("Conexion.php");
+include("navegacion.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,9 +10,7 @@ include("Conexion.php");
 </head>
 
 <body>
-	<?php
-	include("navegacion.php");
-	?>
+	
 	<form name="formulario" method="post" action="ingresos.php">
 
 		*Nombre: <input type="date" name="fecha" value="">

@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include("Conexion.php");
 
 $usuario = $_POST["usuario"];
@@ -13,9 +13,9 @@ $filas = mysqli_num_rows($resultado);
 
 
 if ($filas > 0) {
+	session_start();
 	$_SESSION['usuario'] = $usuario;
-
-	header("Location: index.php");
+	header("Location: general.php");
 } else {
 	echo "<script>alert('Los datos no son correctos')</script>";
 	echo "<script>window.location='ingreso.php'</script>";

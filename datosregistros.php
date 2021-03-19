@@ -1,5 +1,6 @@
 <?php
 include("Conexion.php");
+include("navegacion.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,9 +10,6 @@ include("Conexion.php");
 </head>
 
 <body>
-	<?php
-	include("navegacion.php");
-	?>
 	<br>
 	<form name="formulario" method="post" action="registros.php">
 		<select name="nombre">

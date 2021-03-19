@@ -1,189 +1,352 @@
-<?php
-include("Conexion.php");
-$consultaTemp = "SELECT * FROM registros WHERE nombre = '/R501/temperatura'ORDER BY idRegistro DESC LIMIT 1";
-$resultado = mysqli_query($conexion, $consultaTemp);
-$temperatura = mysqli_fetch_assoc($resultado);
-$consultaSwitch = "SELECT * FROM registros WHERE nombre = 'Switch' ORDER BY idRegistro DESC LIMIT 1";
-$resultado = mysqli_query($conexion, $consultaSwitch);
-$Switch = mysqli_fetch_assoc($resultado);
-
-?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <script src='js/mqttws31.js' type='text/javascript'></script>
+    <title>Home - MT Security</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-  <script src="js/jquery.min.js" type="text/javascript"></script>
-  <script src="js/config.js" type="text/javascript"></script>
-  <title>Inicio</title>
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="vendor/venobox/venobox.css" rel="stylesheet">
+    <link href="vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="vendor/aos/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
-
-
-
-  <script type="text/javascript">
-    var mqtt;
-    var reconnectTimeout = 2000;
-
-    function MQTTconnect() {
-      if (typeof path == "undefined") {
-        path = '/mqtt';
-      }
-      mqtt = new Paho.Client(
-        host,
-        port,
-        path,
-        "web_" + parseInt(Math.random() * 100, 10)
-      );
-      var options = {
-        timeout: 3,
-        useSSL: useTLS,
-        cleanSession: cleansession,
-        onSuccess: onConnect,
-        onFailure: function(message) {
-          $('#status').val("Connection failed: " + message.errorMessage + "Retrying");
-          setTimeout(MQTTconnect, reconnectTimeout);
-        }
-      };
-
-
-      mqtt.onConnectionLost = onConnectionLost;
-      mqtt.onMessageArrived = onMessageArrived;
-
-      if (username != null) {
-        options.userName = username;
-        options.password = password;
-      }
-      console.log("Host=" + host + ", port=" + port + ", path=" + path + " TLS = " + useTLS + " username=" + username + " password=" + password);
-      mqtt.connect(options);
-    }
-
-    ///////////////////aca va codigo nuevo
-    function enviarSalidaAnalogica() {
-      var dato = document.getElementById("myRange").value;
-      message = new Paho.Message(dato);
-      message.destinationName = '/R501/temperatura'
-      mqtt.send(message);
-    };
-
-    function OnOff(dato) {
-      message = new Paho.Message(dato);
-      message.destinationName = 'Switch'
-      mqtt.send(message);
-    };
-
-    function captar() {
-      var x = document.getElementById("myDato").value;
-      message = new Paho.Message(x);
-      message.destinationName = ''
-      mqtt.send(message);
-    };
-
-    function myFunction() {
-      var x = document.getElementById("mySelect").value;
-      if (x != "") {
-        message = new Paho.Message(x);
-        message.destinationName = 'Demo'
-        mqtt.send(message);
-      }
-
-    }
-
-    ///////////////////////////////
-
-    function onConnect() {
-      $('#status').val('Connected to ' + host + ':' + port + path);
-      // Connection succeeded; subscribe to our topic
-      mqtt.subscribe(topic, {
-        qos: 0
-      });
-      $('#topic').val(topic);
-    }
-
-
-
-    function onConnectionLost(response) {
-      setTimeout(MQTTconnect, reconnectTimeout);
-      $('#status').val("connection lost: " + responseObject.errorMessage + ". Reconnecting");
-
-    };
-
-    function onMessageArrived(message) {
-
-      var topic = message.destinationName;
-      var payload = message.payloadString;
-
-      $('#ws').prepend('<br>' + topic + ' = ' + payload + '');
-      if (message.destinationName == '/R501/temperatura') { //acá coloco el topic
-        document.getElementById("temperatura").textContent = message.payloadString;
-      }
-      if (message.destinationName == 'Switch') { //acá coloco el topic
-        document.getElementById("switch").textContent = message.payloadString;
-      }
-      if (message.destinationName == 'Demo') { //acá coloco el topic
-        document.getElementById("demo").textContent = message.payloadString;
-      }
-      if (message.destinationName == 'Dato') { //acá coloco el topic
-        document.getElementById("dato").textContent = message.payloadString;
-      }
-    };
-
-
-    $(document).ready(function() {
-      MQTTconnect();
-    });
-  </script>
 </head>
 
 <body>
-  <?php
-  include("navegacion.php");
-  ?>
 
-  <div>
-    <a>Salida Analógica: </a>
-    <input type="range" id="myRange" min="0" max="1023" onmouseup="enviarSalidaAnalogica()">
-
-  </div>
-  <div>
-    <a>Salida Digital: </a>
-    <button type='button' onclick='OnOff("Encendida")'>ON</button>
-    <button type='button' onclick='OnOff("Apagada")'>OFF</button>
-  </div>
-  <div>
-    <select id="mySelect" onchange="myFunction()">
-      <option></option>
-      <option value="Rojo">Rojo</option>
-      <option value="Amarillo">Amarillo</option>
-      <option value="Verde">Verde</option>
-    </select>
-  </div>
-  <div>
-    <a>Salida Digital: </a>
-    <input type="text" id="myDato" name="">
-    <button type='button' onclick='captar()'>Enviar</button>
-
-  </div>
-
-  <div>
-    <a>Temperatura: </a>
-    <a id="temperatura"><?php echo $temperatura["valor"] ?></a>
-  </div>
-  <div>
-    <a>Switch: </a>
-    <a id="switch"><?php echo $Switch["valor"] ?></a>
-  </div>
-  <div>
-    <a>Color: </a>
-    <a id="demo">-</a>
-  </div>
-  <div>
-    <a>Dato: </a>
-    <a id="dato">-</a>
-  </div>
+    <header id="header" class="fixed-top ">
+        <div class="container d-flex align-items-center">
+            <h1 class="logo mr-auto"><a href="index.html">MT Security</a></h1>
+            <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="#about">Sobre Nosotros</a></li>
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#team">Equipo</a></li>
+                </ul>
+            </nav>
+            <a href="ingreso.php" class="get-started-btn scrollto">Loguearse</a>
+        </div>
+    </header>
 
 
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                    <h1>La mejor solución para tu Empresa</h1>
+                    <h2>Somos un equipo que brinda servicios de Higiene y Seguridad a Empresas mediante la implementación de
+                        tecnologías IoT.</h2>
+                    <div class="d-lg-flex">
+                        <a href="ingreso.php" class="btn-get-started scrollto">Loguearse</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="img/hero-img.png" class="img-fluid animated" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main id="main">
+        <section id="cliens" class="cliens section-bg">
+            <div class="container">
+                <div class="row" data-aos="zoom-in">
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="img/clients/client-1.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="img/clients/client-2.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="img/clients/client-3.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="img/clients/client-4.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="img/clients/client-5.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="img/clients/client-6.png" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="about" class="about">
+            <div class="container" data-aos="fade-up">
+                <div class="section-title">
+                    <h2>Sobre Nosotros</h2>
+                </div>
+                <div class="row content">
+                    <div class="col-lg-6">
+                        <p>
+                            Somos dos estudiantes universitarios de la carrera de Ingeniería en Sistemas del Instituto Universitario
+                            Aeronáutico
+                            realizando el Trabajo Final de Grado. En el mismo aplicaremos todo lo aprendido durante todos estos años.
+                        </p>
+                    </div>
+                    <div class="col-lg-6 pt-4 pt-lg-0">
+                        <p>
+                            Utilizaremos distintos tipos de tecnologías aprendidas para lograr desarrollar una aplicacion web que sea
+                            de
+                            utilidad para cualquier Empresa que quiera mejorar su Higiene y Seguridad en el Ambito Laboral.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="why-us" class="why-us section-bg">
+            <div class="container-fluid" data-aos="fade-up">
+                <div class="row">
+                    <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+                        <div class="content">
+                            <h3><strong>¿Qué beneficios trae implementar IoT en su Empresa?</strong></h3>
+                            <p>
+                                Los avances tecnológicos se han convertido en un proceso imparable.
+                                Las innovaciones se van dando unas tras otras multiplicando sus efectos.
+                            </p>
+                        </div>
+                        <div class="accordion-list">
+                            <ul>
+                                <li>
+                                    <a data-toggle="collapse" class="collapse" href="#accordion-list-1"><span>01</span> Mayor seguridad
+                                        laboral <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                                    <div id="accordion-list-1" class="collapse show" data-parent=".accordion-list">
+                                        <p>
+                                            Los dispositivos IoT pueden ayudar a los empleadores a garantizar la seguridad de los empleados y
+                                            mejorar las condiciones en el lugar de trabajo.
+                                            Los sensores integrados y los dispositivos portátiles permiten que los trabajadores en entornos de
+                                            alto riesgo puedan ser monitoreados.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a data-toggle="collapse" href="#accordion-list-2" class="collapsed"><span>02</span> Uso mejorado de
+                                        los activos <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                                    <div id="accordion-list-2" class="collapse" data-parent=".accordion-list">
+                                        <p>
+                                            A través del IoT para empresas, se consigue realizar un control en tiempo real de todos los
+                                            activos.
+                                            De esta manera, se localizará al momento cualquier incidencia que interfiera en el rendimiento de
+                                            recursos y equipos.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a data-toggle="collapse" href="#accordion-list-3" class="collapsed"><span>03</span> Mejora en la toma
+                                        de decisiones <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                                    <div id="accordion-list-3" class="collapse" data-parent=".accordion-list">
+                                        <p>
+                                            La información facilitada por los dispositivos interconectados con el IoT ayuda a tomar mejores
+                                            decisiones. Tanto a nivel interno como de cara al usuario. Esto permite a las organizaciones
+                                            planificar tácticas y estrategias más efectivas
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="container" data-aos="fade-up">
+                <div class="row">
+                    <div class="col-lg-6 d-flex align-items-center" data-aos="fade-right" data-aos-delay="100">
+                        <img src="img/skills.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
+                        <h3>Rendimientos</h3>
+                        <p class="font-italic">
+                            Listado de rendimientos que podra mejorar al aplicar nuestro sistema
+                        </p>
+
+                        <div class="skills-content">
+
+                            <div class="progress">
+                                <span class="skill">Seguridad del Personal <i class="val">100%</i></span>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <div class="progress">
+                                <span class="skill">Seguridad de los Activos <i class="val">90%</i></span>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="progress">
+                                <span class="skill">Higiene del Ambiente Laboral <i class="val">75%</i></span>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="progress">
+                                <span class="skill">Controles Preventivos de Activos <i class="val">55%</i></span>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Servicios</h2>
+                    <p>Estos son algunos de los Servicios que brinda la aplicacion web desarrollada</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                            <h4><a href="">Higiene y Seguridad Avanzada</a></h4>
+                            <p>Implementacion de sensores para el uso especifico de esta area</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-file"></i></div>
+                            <h4><a href="">Registro del Personal</a></h4>
+                            <p>Registro de acceso a las distintas areas de las empresas por parte del personal</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-tachometer"></i></div>
+                            <h4><a href="">Graficos</a></h4>
+                            <p>Graficos Explicitos con la informacion necesaria para la toma de decisiones</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-layer"></i></div>
+                            <h4><a href="">Almacenamiento de Datos</a></h4>
+                            <p>Registro constante de los datos informados por los diversos sensores aplicados</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <section id="team" class="team section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Equipo</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="pic"><img src="img/team/team-1.jpg" class="img-fluid" alt=""></div>
+                            <div class="member-info">
+                                <h4>Juan José Martinez</h4>
+                                <span>Encargado Area de Seguridad</span>
+                                <p>Empleado a tiempo completo en la Central Nuclear Embalse</p>
+                                <div class="social">
+                                    <a href=""><i class="ri-twitter-fill"></i></a>
+                                    <a href=""><i class="ri-facebook-fill"></i></a>
+                                    <a href=""><i class="ri-instagram-fill"></i></a>
+                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mt-4 mt-lg-0">
+                        <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="pic"><img src="img/team/team-2.jpg" class="img-fluid" alt=""></div>
+                            <div class="member-info">
+                                <h4>Jeremías Tardivo</h4>
+                                <span>Lider Equipo de Desarrollo</span>
+                                <p>Empleado a tiempo completo en la empresa Flexxus S.A.</p>
+                                <div class="social">
+                                    <a href=""><i class="ri-twitter-fill"></i></a>
+                                    <a href=""><i class="ri-facebook-fill"></i></a>
+                                    <a href=""><i class="ri-instagram-fill"></i></a>
+                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer id="footer">
+
+
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Mapa de Sitio</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Sobre Nosotros</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Servicios</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Equipo</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+    <div id="preloader"></div>
+
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="vendor/php-email-form/validate.js"></script>
+    <script src="vendor/waypoints/jquery.waypoints.min.js"></script>
+    <script src="vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="vendor/venobox/venobox.min.js"></script>
+    <script src="vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="vendor/aos/aos.js"></script>
+
+
+    <script src="js/main.js"></script>
 
 </body>
 

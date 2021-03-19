@@ -7,48 +7,83 @@ if ($varsesion == null || $varsesion = '') {
   header("Location: ingreso.php");
   die();
 }
-
+session_abort();
 ?>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/bootstrap.bundle.min.js"></script>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="index.php">Inicio</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Acciones
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="botones.php">Opcion 1</a></li>
-            <li><a class="dropdown-item" href="display.php">Opcion 2</a></li>
-            <li><a class="dropdown-item" href="datosingreso.php">Ver ingresos</a></li>
-            <li><a class="dropdown-item" href="datosregistros.php">Ver registros</a></li>
+<link href="css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="vendor/icofont/icofont.min.css" rel="stylesheet">
+
+
+<header id="header" class="fixed-top">
+  <div class="container d-flex align-items-center">
+    <h1 class="logo mr-auto"><a href="general.php">MT Security</a></h1> 
+<nav class="nav-menu d-none d-lg-block">
+  <ul>
+    <li class="active"><a href="general.php">Home</a></li>
+    <li class="drop-down"><a href="#">Seguridad</a>
+      <ul>
+        <li><a href="botones.php">Botones</a></li>
+        <li class="drop-down"><a href="#">Sub-Opciones</a>
+          <ul>
+            <li><a href="#">Sub-Opcion 1</a></li>
+            <li><a href="#">Sub-Opcion 2</a></li>
+            <li><a href="#">Sub-Opcion 3</a></li>
+            <li><a href="#">Sub-Opcion 4</a></li>
+            <li><a href="#">Sub-Opcion 5</a></li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Ver datos
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
-            <li><a class="dropdown-item" href="graficos.php">Graficos</a></li>
-
-
-          </ul>
-        </li>
-
+        <li><a href="indicadores.php">Indicadores</a></li>
+        <li><a href="graficos.php">Graficos</a></li>
+        <li><a href="#">Opcion 4</a></li>
       </ul>
-      <form class="d-flex">
-
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><?php echo $usuario ?></a>
-        <a href="cerrar_sesion.php" class="btn btn-outline-danger">Salir</a>
-      </form>
-    </div>
-  </div>
+    </li>
+    <li class="drop-down"><a href="#">Higiene</a>
+      <ul>
+        <li><a href="display.php">Displays</a></li>
+        <li><a href="#">Opcion 2</a></li>
+        <li><a href="#">Opcion 3</a></li>
+        <li><a href="#">Opcion 4</a></li>
+        <li class="drop-down"><a href="#">Sub-Opciones</a>
+          <ul>
+            <li><a href="#">Sub-Opcion 1</a></li>
+            <li><a href="#">Sub-Opcion 2</a></li>
+            <li><a href="#">Sub-Opcion 3</a></li>
+            <li><a href="#">Sub-Opcion 4</a></li>
+            <li><a href="#">Sub-Opcion 5</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drop-down"><a href="#">Usuarios</a>
+      <ul>
+        <li><a href="datosingreso.php">Ver Ingresos</a></li>
+        <li><a href="datosregistros.php">Ver Registros</a></li>
+        <li><a href="#">Opcion 3</a></li>
+        <li><a href="#">Opcion 4</a></li>
+        <li class="drop-down"><a href="#">Sub-Opciones</a>
+          <ul>
+            <li><a href="#">Sub-Opcion 1</a></li>
+            <li><a href="#">Sub-Opcion 2</a></li>
+            <li><a href="#">Sub-Opcion 3</a></li>
+            <li><a href="#">Sub-Opcion 4</a></li>
+            <li><a href="#">Sub-Opcion 5</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drop-down get-started-btn"><a> <?php echo $usuario ?> </a>
+      <ul>
+        <li><a href="cerrar_sesion.php">Salir</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
+
+  </div>
+</header>
+<div style="width: 100%; height: 75px; background: #37517e;"></div>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="js/main.js"></script>
