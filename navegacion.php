@@ -25,6 +25,8 @@ session_abort();
     <li class="drop-down"><a href="#">Seguridad</a>
       <ul>
         <li><a href="botones.php">Botones</a></li>
+        <li><a href="indicadores.php">Indicadores</a></li>
+        <li><a href="graficos.php">Graficos</a></li>
         <li class="drop-down"><a href="#">Sub-Opciones</a>
           <ul>
             <li><a href="#">Sub-Opcion 1</a></li>
@@ -34,43 +36,21 @@ session_abort();
             <li><a href="#">Sub-Opcion 5</a></li>
           </ul>
         </li>
-        <li><a href="indicadores.php">Indicadores</a></li>
-        <li><a href="graficos.php">Graficos</a></li>
-        <li><a href="#">Opcion 4</a></li>
       </ul>
     </li>
     <li class="drop-down"><a href="#">Higiene</a>
       <ul>
         <li><a href="display.php">Displays</a></li>
-        <li><a href="#">Opcion 2</a></li>
-        <li><a href="#">Opcion 3</a></li>
-        <li><a href="#">Opcion 4</a></li>
-        <li class="drop-down"><a href="#">Sub-Opciones</a>
-          <ul>
-            <li><a href="#">Sub-Opcion 1</a></li>
-            <li><a href="#">Sub-Opcion 2</a></li>
-            <li><a href="#">Sub-Opcion 3</a></li>
-            <li><a href="#">Sub-Opcion 4</a></li>
-            <li><a href="#">Sub-Opcion 5</a></li>
-          </ul>
-        </li>
+        
+        
       </ul>
     </li>
     <li class="drop-down"><a href="#">Usuarios</a>
       <ul>
         <li><a href="datosingreso.php">Ver Ingresos</a></li>
         <li><a href="datosregistros.php">Ver Registros</a></li>
-        <li><a href="#">Opcion 3</a></li>
-        <li><a href="#">Opcion 4</a></li>
-        <li class="drop-down"><a href="#">Sub-Opciones</a>
-          <ul>
-            <li><a href="#">Sub-Opcion 1</a></li>
-            <li><a href="#">Sub-Opcion 2</a></li>
-            <li><a href="#">Sub-Opcion 3</a></li>
-            <li><a href="#">Sub-Opcion 4</a></li>
-            <li><a href="#">Sub-Opcion 5</a></li>
-          </ul>
-        </li>
+       
+        
       </ul>
     </li>
     <li class="drop-down get-started-btn"><a> <?php echo $usuario ?> </a>
