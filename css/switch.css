@@ -1,8 +1,9 @@
 :root {
     --color-green : #00a878;
-    --color-red   : #fe5e41;
+    --color-blue : blue;
     --color-button: #fdffff;
     --color-black : #000;
+    --color-gris : #7e7e7e;
 }
 
 .switch-button {
@@ -14,10 +15,10 @@
 }
 
 .switch-button .switch-button__label {
-    background-color: var(--color-red);
-    width           : 2.5rem;
-    height          : 1.5rem;
-    border-radius   : 1.5rem;
+    background-color: var(--color-gris);
+    width           : 5rem;
+    height          : 3rem;
+    border-radius   : 3rem;
     display         : inline-block;
     position        : relative;
 }
@@ -26,8 +27,8 @@
     transition      : .2s;
     display         : block;
     position        : absolute;
-    width           : 1.5rem;
-    height          : 1.5rem;
+    width           : 3rem;
+    height          : 3rem;
     background-color: var(--color-button);
     content         : '';
     border-radius   : 50%;
@@ -35,9 +36,9 @@
 }
 
 .switch-button .switch-button__checkbox:checked+.switch-button__label {
-    background-color: var(--color-green);
+    background-color: var(--color-blue);
 }
 
 .switch-button .switch-button__checkbox:checked+.switch-button__label:before {
-    transform: translateX(1rem);
+    transform: translateX(2rem);
 }

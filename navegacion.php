@@ -47,9 +47,20 @@ session_abort();
     </li>
     <li class="drop-down"><a href="#">Usuarios</a>
       <ul>
-        <li><a href="datosingreso.php">Ver Ingresos</a></li>
-        <li><a href="datosregistros.php">Ver Registros</a></li>
-       
+        <li class="drop-down"><a href="#">Tablas</a>
+          <ul>
+            <li><a href="datosingreso.php">Ver Ingresos</a></li>
+            <li><a href="datosregistros.php">Ver Registros</a></li>
+            
+          </ul>
+        </li>
+        <li class="drop-down"><a href="#">Graficos</a>
+          <ul>
+            <li><a href="grafico1.php">Cantidad de ingresos</a></li>
+            <li><a href="grafico2.php">Cantidad de registros</a></li>
+            
+          </ul>
+        </li>
         
       </ul>
     </li>

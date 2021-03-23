@@ -1,5 +1,6 @@
 <?php
 include("Conexion.php");
+include("navegacion.php"); 
 $consultaSwitch = "SELECT * FROM registros WHERE nombre = 'Switch' ORDER BY idRegistro DESC LIMIT 1";
 $resultado = mysqli_query ($conexion, $consultaSwitch);
 $Switch = mysqli_fetch_assoc($resultado);
@@ -19,9 +20,7 @@ $Switch = mysqli_fetch_assoc($resultado);
 
     
     </head>
-    <?php 
-        include("navegacion.php"); 
-        ?>
+    
     <script type="text/javascript">
     var mqtt;
     var reconnectTimeout = 2000;
@@ -156,19 +155,20 @@ $Switch = mysqli_fetch_assoc($resultado);
     <body>
         
         <div style="margin-left: 5%;">
-        <a>Pieza </a><br>
+        <br>
         <label class="switch-button">
             
                 <input type="checkbox" name="switch-button" id="switch-label" class="switch-button__checkbox" onclick='OnOff()' <?php if ($Switch["valor"] === "Encendida") {?> checked <?php } ?> >
                 <label for="switch-label" class="switch-button__label"></label>
                 
         </label>
-       
+        <label id="luz" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px; 
+           <?php if ($Switch["valor"] === "Apagada") {?> background: #7e7e7e; <?php } ?>
+           <?php if ($Switch["valor"] === "Encendida") {?> background: blue; <?php } ?>" ></label>
         <br>
-        
-        
 
         </div>
+        
         <div style="margin-left: 5%;">
             <select id="Select" onchange="myFunction()">
               <option></option>
@@ -176,13 +176,11 @@ $Switch = mysqli_fetch_assoc($resultado);
               <option value="Amarillo" style="background-color: yellow;">CUIDADO</option>
               <option value="Verde" style="background-color: green;">NORMAL</option>
             </select>
-           
+            <label id="color" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px"></label>
           </div>
           <br>
-           <label id="luz" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px; 
-           <?php if ($Switch["valor"] === "Apagada") {?> background: #7e7e7e; <?php } ?>
-           <?php if ($Switch["valor"] === "Encendida") {?> background: blue; <?php } ?>" ></label>
-            <label id="color" style="width: 50px; height: 50px;border-radius: 50%;"></label>
+           
+           
 
 </body>
 
