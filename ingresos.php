@@ -18,8 +18,8 @@ if ($fecha == null) {
 	<?php
 	include("navegacion.php");
 	?>
-	<a href="datosingreso.php" class="btn btn-primary">Elegir nuevos datos</a>
-	<table width="100%" class="table table-bordered table-striped" align="center">
+	<a href="datosingreso.php" class="btn btn-primary" style="float: left; margin: 50px;">Volver</a>
+	<table class="table table-bordered table-striped" style="width:85%;">
 
 		<tr align="center">
 

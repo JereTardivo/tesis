@@ -11,13 +11,14 @@ include("navegacion.php");
 
 <body>
 	<br>
+	<?php $resultado = mysqli_query($conexion, "SELECT distinct nombre FROM registros"); ?>
 	<form name="formulario" method="post" action="registros.php">
 		<select name="nombre">
 			<option value="1">Todo</option>
-			<option value="Temperatura">Temperatura</option>
-			<option value="Conteo">Conteo</option>
-			<option value="Humedad">Humedad</option>
-			<option value="/R501/temperatura">/R501/temperatura</option>
+			<?php while ($filas=mysqli_fetch_assoc($resultado)) {?>
+			<option value='<?php echo $filas["nombre"];?>'><?php echo $filas["nombre"];?></option>
+			<?php } ?>
+			
 
 		</select>
 		*Fecha: <input type="date" name="fecha" value="">

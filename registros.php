@@ -1,5 +1,6 @@
 <?php
 include("Conexion.php");
+include("navegacion.php");
 $nombre = $_POST['nombre'];
 $fecha = $_POST['fecha'];
 $consulta = "SELECT * FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') = '$fecha' AND nombre = '$nombre'";
@@ -13,7 +14,6 @@ if ($nombre == "1" && $fecha == null) {
 	$consulta = "SELECT * FROM registros WHERE 1";
 }
 
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,11 +23,9 @@ if ($nombre == "1" && $fecha == null) {
 </head>
 
 <body>
-	<?php
-	include("navegacion.php");
-	?>
-	<a href="datosregistros.php" class="btn btn-primary">Elegir nuevos datos</a>
-	<table width="100%" class="table table-bordered table-striped" align="center">
+	
+	<a href="datosregistros.php" class="btn btn-primary" style="float: left; margin: 50px;">Volver</a>
+	<table class="table table-bordered table-striped" style="width:85%;">
 
 		<tr align="center">
 
@@ -55,6 +53,8 @@ if ($nombre == "1" && $fecha == null) {
 		?>
 
 	</table>
+	
+	
 
 </body>
 
