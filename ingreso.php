@@ -28,8 +28,6 @@
     <header id="header" class="fixed-top ">
         <div class="container d-flex align-items-center">
             <h1 class="logo mr-auto"><a href="index.html">MT Security</a></h1>
-            
-           
         </div>
     </header>
 
@@ -39,17 +37,17 @@
             <div class="row">
                 <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
                     <div align="center" id="formulario-act">
-						<form action="validar.php" method="post" style="">
-							<h1>Ingreso</h1>
-							<input type="text" name="usuario" id="datos-ingreso">
-							<br><br>
-							<input type="password" name="clave" id="datos-ingreso">
-							<br><br>
-							<input type="submit" name="ingresar" value="Ingresar" class="btn-get-started scrollto">
-						</form>
+                        <form action="validar.php" method="post">
+                            <h1>Ingreso</h1>
+                            <input type="text" name="usuario" id="datos-ingreso">
+                            <br><br>
+                            <input type="password" name="clave" id="datos-ingreso">
+                            <br><br>
+                            <input type="submit" name="ingresar" value="Ingresar" class="btn-get-started scrollto">
+                        </form>
 
-					</div>
-                    
+                    </div>
+
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
                     <img src="img/hero-img.png" class="img-fluid animated" alt="">
@@ -57,8 +55,10 @@
             </div>
         </div>
     </section>
-
+    <section id="hero" style="height:fit-content;"></section>
     
+
+
 
     <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
     <div id="preloader"></div>

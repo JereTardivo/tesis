@@ -20,13 +20,9 @@ include("navegacion.php");
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                    <div align="center" id="formulario-act">
-                        
-                            <h1>Bienvenido <?php echo $usuario ?></h1>
-                            
-
-                    </div>
-                    
+                    <div align="center" id="formulario-act">  
+                            <h1>Bienvenido <?php echo ucfirst($usuario)  ?></h1>
+                    </div>    
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
                     <img src="img/hero-img.png" class="img-fluid animated" alt="">
@@ -34,6 +30,7 @@ include("navegacion.php");
             </div>
         </div>
     </section>
+    <section id="hero" style="height:fit-content;"></section>
 
     
 

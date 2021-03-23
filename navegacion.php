@@ -53,7 +53,7 @@ session_abort();
         
       </ul>
     </li>
-    <li class="drop-down get-started-btn"><a> <?php echo $usuario ?> </a>
+    <li class="drop-down get-started-btn"><a> <?php echo ucfirst($usuario) ?> </a>
       <ul>
         <li><a href="cerrar_sesion.php">Salir</a></li>
       </ul>
