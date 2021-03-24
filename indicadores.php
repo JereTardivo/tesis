@@ -1,6 +1,6 @@
 <?php
 include("Conexion.php");
-
+include("navegacion.php")
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,15 +14,16 @@ include("Conexion.php");
 	<!-- RPARA MQTT -->
 	<script src='js/mqttws31.js' type='text/javascript'></script>
 	<script src="js/config.js" type="text/javascript"></script>
+	<script src="js/conexionMQTT.js"></script>
 
-    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="vendor/jquery/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/switch.css">
 	<title>Inicio</title>
   
 </head>
 
 <body>
-	<?php include("navegacion.php") ?>
+
 	<div style="margin-top: 0px;">
 	      <label id="tempe" style="width: 15%; "></label>
 		  <label id="hume" style="width: 15%;"></label>
@@ -78,41 +79,7 @@ include("Conexion.php");
 		    title: "Ultrasonico"
 		  });  
 	    
-	    var mqtt;
-	    var reconnectTimeout = 2000;
-
-	    function MQTTconnect() {
-	    if (typeof path == "undefined") {
-	        path = '/mqtt';
-	    }
-	    mqtt = new Paho.Client(
-	            host,
-	            port,
-	            path,
-	            "web_" + parseInt(Math.random() * 100, 10)
-	    );
-	        var options = {
-	            timeout: 3,
-	            useSSL: useTLS,
-	            cleanSession: cleansession,
-	            onSuccess: onConnect,
-	            onFailure: function (message) {
-	                $('#status').val("Connection failed: " + message.errorMessage + "Retrying");
-	                setTimeout(MQTTconnect, reconnectTimeout);
-	            }
-	        };
-
-
-	        mqtt.onConnectionLost = onConnectionLost;
-	        mqtt.onMessageArrived = onMessageArrived;
-
-	        if (username != null) {
-	            options.userName = username;
-	            options.password = password;
-	        }
-	        console.log("Host="+ host + ", port=" + port + ", path=" + path + " TLS = " + useTLS + " username=" + username + " password=" + password);
-	        mqtt.connect(options);
-	    };
+	    
 	    ///////////ACCIONES
 	    
 	    temperaturas = 0;

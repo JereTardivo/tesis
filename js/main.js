@@ -144,7 +144,7 @@
   });
 
   // Skills section
-  $('.skills-content').waypoint(function() {
+  $('.skills-content').scroll(function() {
     $('.progress .progress-bar').each(function() {
       $(this).css("width", $(this).attr("aria-valuenow") + '%');
     });
