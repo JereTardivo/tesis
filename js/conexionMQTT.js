@@ -7,7 +7,7 @@ var conteoluz = 0;
 var movimiento = 0;
 var ultrasonico = 0;
 
-var host = '192.168.100.16';	// hostname or IP address
+var host = '192.168.1.27';	// hostname or IP address
 var port = 9001;
 var topic = '#';		// topic to subscribe to
 var useTLS = false;

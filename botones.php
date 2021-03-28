@@ -68,11 +68,13 @@ $Switch = mysqli_fetch_assoc($resultado);
           message = new Paho.Message("Encendida");
           message.destinationName = 'Switch';
           mqtt.send(message);
+          
         }
         else if (estadoSwitch == "Encendida"){
           message = new Paho.Message("Apagada");
           message.destinationName = 'Switch';
           mqtt.send(message);
+          
         }
 
 
@@ -114,9 +116,11 @@ $Switch = mysqli_fetch_assoc($resultado);
             estadoSwitch = message.payloadString;
             if (message.payloadString == 'Apagada') {
                 document.getElementById("luz").style.backgroundColor = "#7e7e7e";
+                document.getElementById("switch-label").checked = false;
             }
             if (message.payloadString == 'Encendida') {
                 document.getElementById("luz").style.backgroundColor = "blue";
+                document.getElementById("switch-label").checked = true;
             }
             
         }
@@ -162,6 +166,7 @@ $Switch = mysqli_fetch_assoc($resultado);
                 <label for="switch-label" class="switch-button__label"></label>
                 
         </label>
+        
         <label id="luz" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px; 
            <?php if ($Switch["valor"] === "Apagada") {?> background: #7e7e7e; <?php } ?>
            <?php if ($Switch["valor"] === "Encendida") {?> background: blue; <?php } ?>" ></label>

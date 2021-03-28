@@ -58,7 +58,7 @@ session_abort();
           <ul>
             <li><a href="grafico1.php">Cantidad de ingresos</a></li>
             <li><a href="grafico2.php">Cantidad de registros</a></li>
-            
+            <li><a href="grafico3.php">Cantidad de ingresos por zona</a></li>
           </ul>
         </li>
         

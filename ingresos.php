@@ -35,7 +35,7 @@ if ($fecha == null) {
 
 			<tr align="center">
 				<td><?php echo $filas["id"] ?></td>
-				<td><?php echo $filas["chipid"] ?></td>
+				<td><a href="ubicacion.php?chipid=<?php echo $filas["chipid"] ?>"><?php echo $filas["chipid"] ?></td>
 				<td><?php echo $filas["fecha"] ?></td>
 				<td><a href="usuarios.php?UID=<?php echo $filas["UID"] ?>"><?php echo $filas["UID"] ?></a></td>
 
