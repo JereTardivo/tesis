@@ -6,6 +6,7 @@ var conteo = 0;
 var conteoluz = 0;
 var movimiento = 0;
 var ultrasonico = 0;
+var gas = 0;
 
 var host = '192.168.1.27';	// hostname or IP address
 var port = 9001;
@@ -77,6 +78,11 @@ function onMessageArrived(message) {
     }
     if (message.destinationName == 'Ultrasonico') {
         ultrasonico = parseInt(message.payloadString);
+
+    }
+    if (message.destinationName == 'Gas') {
+        gas = parseInt(message.payloadString);
+        
 
     }
 

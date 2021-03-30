@@ -1,5 +1,6 @@
 <?php
 include("Conexion.php");
+include("navegacion.php");
 $fecha = $_POST['fecha'];
 $consulta = "SELECT * FROM ingresos WHERE DATE_FORMAT(fecha, '%Y-%m-%d') = '$fecha'";
 if ($fecha == null) {
@@ -15,9 +16,7 @@ if ($fecha == null) {
 </head>
 
 <body>
-	<?php
-	include("navegacion.php");
-	?>
+	
 	<a href="datosingreso.php" class="btn btn-primary" style="float: left; margin: 50px;">Volver</a>
 	<table class="table table-bordered table-striped" style="width:85%;">
 

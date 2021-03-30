@@ -35,8 +35,8 @@ include("navegacion.php")
 				<table class="table table-hover" >
 					<tbody>
 						<tr>
-							<td><label id="containerTem" style="width:105%"></label></td>
-							<td><label id="containerHum" style="width:105%"></label></td>
+							<td><label id="containerTem" style="width:100%"></label></td>
+							<td><label id="containerHum" style="width:100%"></label></td>
 						</tr>
 				</table>
 			</div>
@@ -66,6 +66,19 @@ include("navegacion.php")
 						</tr>
 				</table>
 			</div>
+
+			<div class="w-100"></div>
+			<div class="w-100"></div>
+
+			<div class="col-auto">
+				<table class="table table-hover">
+					<tbody>
+						<tr>
+							<td><label id="containerGas" style="width:100%"></label></td>
+							
+						</tr>
+				</table>
+			</div>
 		</div>
 
 
@@ -75,6 +88,7 @@ include("navegacion.php")
 		<script src="js/graficoHumedad.js"></script>
 		<script src="js/graficoMovimiento.js"></script>
 		<script src="js/graficoTemperatura.js"></script>
+		<script src="js/graficoGas.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 

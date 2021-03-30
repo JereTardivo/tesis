@@ -27,11 +27,11 @@ session_abort();
         <li><a href="botones.php">Botones</a></li>
         <li><a href="indicadores.php">Indicadores</a></li>
         <li><a href="graficos.php">Graficos</a></li>
-        <li class="drop-down"><a href="#">Sub-Opciones</a>
+        <li class="drop-down"><a href="#">Indicadores</a>
           <ul>
-            <li><a href="#">Sub-Opcion 1</a></li>
-            <li><a href="#">Sub-Opcion 2</a></li>
-            <li><a href="#">Sub-Opcion 3</a></li>
+            <li><a href="iGas.php">Gas</a></li>
+            <li><a href="iTemperatura.php">Temperatura</a></li>
+            <li><a href="iHumedad.php">Humedad</a></li>
             <li><a href="#">Sub-Opcion 4</a></li>
             <li><a href="#">Sub-Opcion 5</a></li>
           </ul>

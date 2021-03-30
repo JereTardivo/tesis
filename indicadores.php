@@ -25,12 +25,13 @@ include("navegacion.php")
 <body>
 
 	<div style="margin-top: 0px;">
-	      <label id="tempe" style="width: 15%; "></label>
-		  <label id="hume" style="width: 15%;"></label>
-		  <label id="cont" style="width: 15%;"></label>
-		  <label id="contluz" style="width: 15%;"></label>
-		  <label id="mov" style="width: 15%;"></label>
-		  <label id="ult" style="width: 15%;"></label>
+	      <label id="tempe" style="width: 14%; "></label>
+		  <label id="hume" style="width: 14%;"></label>
+		  <label id="cont" style="width: 14%;"></label>
+		  <label id="contluz" style="width: 14%;"></label>
+		  <label id="mov" style="width: 14%;"></label>
+		  <label id="ult" style="width: 14%;"></label>
+		  <label id="gas" style="width: 14%;"></label>
 	</div>	 	
 
 </body>
@@ -78,6 +79,13 @@ include("navegacion.php")
 		    max: 1,
 		    title: "Ultrasonico"
 		  });  
+		  var g = new JustGage({
+		    id: "gas",
+		    value: 0,
+		    min: 0,
+		    max: 600,
+		    title: "Gas"
+		  });  
 	    
 	    
 	    ///////////ACCIONES
@@ -88,6 +96,7 @@ include("navegacion.php")
 		conteoluz = 0;
 		movimiento = 0;
 		ultrasonico = 0;
+		gas = 0;
 	    
 		  
 
@@ -121,6 +130,10 @@ include("navegacion.php")
 			if (message.destinationName == 'Ultrasonico') { 
 				ultrasonico = parseInt(message.payloadString);
 				u.refresh(message.payloadString);
+			}
+			if (message.destinationName == 'Gas') { 
+				gas = parseInt(message.payloadString);
+				g.refresh(message.payloadString);
 			}
 
 			};
