@@ -10,7 +10,7 @@ include("navegacion.php");
 </head>
 
 <body>
-	
+
 	<form name="formulario" method="post" action="ingresos.php">
 
 		*Nombre: <input type="date" name="fecha" value="">

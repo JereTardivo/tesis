@@ -15,10 +15,10 @@ include("navegacion.php");
 	<form name="formulario" method="post" action="registros.php">
 		<select name="nombre">
 			<option value="1">Todo</option>
-			<?php while ($filas=mysqli_fetch_assoc($resultado)) {?>
-			<option value='<?php echo $filas["nombre"];?>'><?php echo $filas["nombre"];?></option>
+			<?php while ($filas = mysqli_fetch_assoc($resultado)) { ?>
+				<option value='<?php echo $filas["nombre"]; ?>'><?php echo $filas["nombre"]; ?></option>
 			<?php } ?>
-			
+
 
 		</select>
 		*Fecha: <input type="date" name="fecha" value="">

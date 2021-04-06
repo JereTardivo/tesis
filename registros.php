@@ -22,20 +22,14 @@ if ($nombre == "1" && $fecha == null) {
 	<title>Registros</title>
 </head>
 
-<body>
-	
+<body>	
 	<a href="datosregistros.php" class="btn btn-primary" style="float: left; margin: 50px;">Volver</a>
 	<table class="table table-bordered table-striped" style="width:85%;">
-
 		<tr align="center">
-
 			<th>idRegistro</th>
 			<th>Nombre</th>
 			<th>Valor</th>
 			<th>Fecha</th>
-
-
-
 		</tr>
 		<?php
 		$resultado = mysqli_query($conexion, $consulta);
@@ -46,16 +40,11 @@ if ($nombre == "1" && $fecha == null) {
 				<td><?php echo $filas["nombre"] ?></td>
 				<td><?php echo $filas["valor"] ?></td>
 				<td><?php echo $filas["fecha"] ?></td>
-
 			</tr>
 		<?php
 		}
 		?>
-
-	</table>
-	
-	
-
+	</table>	
 </body>
 
 </html>

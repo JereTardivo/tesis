@@ -28,15 +28,12 @@ include("navegacion.php")
 
 	<div class="container border" style="height:90%;">
 		<br>
-		<h2 style="text-align: center;">Indicadores de Gas en el Ambiente</h2>
+		<h2 style="text-align: center;">Indicadores de Sonido en Maquinaria</h2>
 		<div class="row vh-100 justify-content-around">
 			<div class="col-sm-3 text-center border" style="height:50%; margin-left:5%; margin-top:5%">
-				<label id="gas"></label>
+				<label id="cont"></label>
 				<label id="color" style="width: 75px; height: 75px;border-radius: 50%"></label>
-			</div>
-			<div class="col-sm-6 text-center border" style="height:70%">
-				<label id="containerGas" style="width:100%"></label>
-			</div>
+			</div>	
 		</div>
 	</div>
 
@@ -44,53 +41,27 @@ include("navegacion.php")
 
 <script src="js/graficoGas.js"></script>
 <script type="text/javascript">
-	var g = new JustGage({
-		id: "gas",
-		value: 0,
+	var c = new JustGage({
+		id: "cont",
+		value: 0, //<?php echo $conteo["valor"] ?>,
 		min: 0,
-		max: 600,
-		title: "Gas"
+		max: 20,
+		title: "Conteo Sonido"
 	});
 
-
 	///////////ACCIONES
-
-	gas = 0;
-
-
-
+	conteo = 0;
 	function onMessageArrived(message) {
-
 		var topic = message.destinationName;
 		var payload = message.payloadString;
 
 		$('#ws').prepend('<br>' + topic + ' = ' + payload + '');
 
-
-
-		if (message.destinationName == 'Gas') {
-			gas = parseInt(message.payloadString);
-			g.refresh(message.payloadString);
+		if (message.destinationName == 'Conteo') {
+			conteo = parseInt(message.payloadString);
+			c.refresh(message.payloadString);
 		}
-		if (gas <= 150) {
-
-			document.getElementById("color").style.backgroundColor = "green";
-		}
-		if (gas > 150 && gas <= 300) {
-
-			document.getElementById("color").style.backgroundColor = "yellow";
-		}
-		if (gas > 300) { //acá coloco el topic
-
-			document.getElementById("color").style.backgroundColor = "red";
-		}
-
-
-
-
 	};
-
-	////////////////
 
 	function onConnect() {
 		$('#status').val('Connected to ' + host + ':' + port + path);
@@ -101,15 +72,11 @@ include("navegacion.php")
 		$('#topic').val(topic);
 	}
 
-
-
 	function onConnectionLost(response) {
 		setTimeout(MQTTconnect, reconnectTimeout);
 		$('#status').val("connection lost: " + responseObject.errorMessage + ". Reconnecting");
 
 	};
-
-
 
 	$(document).ready(function() {
 		MQTTconnect();

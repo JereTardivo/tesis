@@ -18,59 +18,74 @@ session_abort();
 
 <header id="header" class="fixed-top">
   <div class="container d-flex align-items-center">
-    <h1 class="logo mr-auto"><a href="general.php">MT Security</a></h1> 
-<nav class="nav-menu d-none d-lg-block">
-  <ul>
-    <li class="active"><a href="general.php">Home</a></li>
-    <li class="drop-down"><a href="#">Seguridad</a>
+    <h1 class="logo mr-auto"><a href="general.php">MT Security</a></h1>
+    <nav class="nav-menu d-none d-lg-block">
       <ul>
-        <li><a href="botones.php">Botones</a></li>
-        <li><a href="indicadores.php">Indicadores</a></li>
-        <li><a href="graficos.php">Graficos</a></li>
-        <li class="drop-down"><a href="#">Indicadores</a>
+        <li class="active"><a href="general.php">Home</a></li>
+        <li class="drop-down"><a href="#">Seguridad</a>
           <ul>
-            <li><a href="iGas.php">Gas</a></li>
-            <li><a href="iTemperatura.php">Temperatura</a></li>
-            <li><a href="iHumedad.php">Humedad</a></li>
-            <li><a href="#">Sub-Opcion 4</a></li>
-            <li><a href="#">Sub-Opcion 5</a></li>
+            <li class="drop-down"><a href="#">Temperatura</a>
+              <ul>
+                <li><a href="iTemperatura.php">Indicadores</a></li>
+                <li><a href="accionesTemperatura.php">Acciones</a></li>
+                <li><a href="#">Registros</a></li>
+              </ul>
+            </li>
+            <li class="drop-down"><a href="#">Humedad</a>
+              <ul>
+                <li><a href="iHumedad.php">Indicadores</a></li>
+                <li><a href="accionesHumedad.php">Acciones</a></li>
+                <li><a href="#">Registros</a></li>
+              </ul>
+            </li>
+            <li class="drop-down"><a href="#">Gas</a>
+              <ul>
+                <li><a href="iGas.php">Indicadores</a></li>
+                <li><a href="accionesGas.php">Acciones</a></li>
+                <li><a href="#">Registros</a></li>
+              </ul>
+            </li>
+           <!-- Contador de sonidos para rutputa de alguna maquina o algo asi --> 
+            <li class="drop-down"><a href="#">Sonido</a>
+              <ul>
+                <li><a href="iSonido.php">Indicadores</a></li>
+                <li><a href="#">Acciones</a></li>
+                <li><a href="#">Registros</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="drop-down"><a href="#">Higiene</a>
+          <ul>
+            <li><a href="dispenser.php">Dispenser</a></li>
+          </ul>
+        </li>
+        <li class="drop-down"><a href="#">Usuarios</a>
+          <ul>
+            <li class="drop-down"><a href="#">Tablas</a>
+              <ul>
+                <li><a href="datosingreso.php">Ver Ingresos</a></li>
+                <li><a href="datosregistros.php">Ver Registros</a></li>
+
+              </ul>
+            </li>
+            <li class="drop-down"><a href="#">Graficos</a>
+              <ul>
+                <li><a href="grafico1.php">Cantidad de ingresos</a></li>
+                <li><a href="grafico2.php">Cantidad de registros</a></li>
+                <li><a href="grafico3.php">Cantidad de ingresos por zona</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+        <li class="drop-down get-started-btn"><a> <?php echo ucfirst($usuario) ?> </a>
+          <ul>
+            <li><a href="cerrar_sesion.php">Salir</a></li>
           </ul>
         </li>
       </ul>
-    </li>
-    <li class="drop-down"><a href="#">Higiene</a>
-      <ul>
-        <li><a href="display.php">Displays</a></li>
-        
-        
-      </ul>
-    </li>
-    <li class="drop-down"><a href="#">Usuarios</a>
-      <ul>
-        <li class="drop-down"><a href="#">Tablas</a>
-          <ul>
-            <li><a href="datosingreso.php">Ver Ingresos</a></li>
-            <li><a href="datosregistros.php">Ver Registros</a></li>
-            
-          </ul>
-        </li>
-        <li class="drop-down"><a href="#">Graficos</a>
-          <ul>
-            <li><a href="grafico1.php">Cantidad de ingresos</a></li>
-            <li><a href="grafico2.php">Cantidad de registros</a></li>
-            <li><a href="grafico3.php">Cantidad de ingresos por zona</a></li>
-          </ul>
-        </li>
-        
-      </ul>
-    </li>
-    <li class="drop-down get-started-btn"><a> <?php echo ucfirst($usuario) ?> </a>
-      <ul>
-        <li><a href="cerrar_sesion.php">Salir</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+    </nav>
 
   </div>
 </header>
