@@ -34,6 +34,13 @@ session_abort();
                 <li><a href="registrosTemperatura.php">Registros</a></li>
               </ul>
             </li>
+            <li class="drop-down"><a href="#">Movimiento</a>
+              <ul>
+                <li><a href="iMovimiento.php">Indicadores</a></li>
+                <li><a href="accionesTemperatura.php">Acciones</a></li>
+                <li><a href="registrosTemperatura.php">Registros</a></li>
+              </ul>
+            </li>
             <li class="drop-down"><a href="#">Humedad</a>
               <ul>
                 <li><a href="iHumedad.php">Indicadores</a></li>

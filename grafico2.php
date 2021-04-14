@@ -13,6 +13,8 @@ include("navegacion.php");
     <script src="js/export-data.js"></script>
     <script src="js/accessibility.js"></script>
 
+
+
     <link href="css/highcharts.css" rel="stylesheet">
 
     <title>Cantidad de Registros</title>
