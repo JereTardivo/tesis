@@ -2,7 +2,7 @@ var movimiento = 0;
 
 Highcharts.chart('containerMov', {
 	chart: {
-		type: 'column',
+		type: 'spline',
 		animation: Highcharts.svg, // don't animate in old IE
 		marginRight: 10,
 		events: {

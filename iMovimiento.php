@@ -1,6 +1,7 @@
 <?php
 include("Conexion.php");
 include("navegacion.php");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,12 +9,14 @@ include("navegacion.php");
 <head>
 	<!-- HIGHCHART -->
 	<script src="js/highcharts.js"></script>
+
 	<!-- GAGE -->
 	<script src="js/raphael-2.1.4.min.js"></script>
 	<script src="js/justgage.js"></script>
 	<!-- RPARA MQTT -->
 	<script src='js/mqttws31.js' type='text/javascript'></script>
 	<script src="js/conexionMQTT.js"></script>
+
 
 	<script src="vendor/jquery/jquery.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="css/switch.css">
@@ -26,46 +29,27 @@ include("navegacion.php");
 
 	<div class="container border" style="height:90%;">
 		<br>
-		<h2 style="text-align: center;">Medidor de Dispenser de Alcohol</h2>
+		<h2 style="text-align: center;">Indicadores de Movimiento</h2>
 		<div class="row vh-100 justify-content-around">
 			<div class="col-sm-3 text-center border" style="height:50%; margin-left:5%; margin-top:5%">
-				
-				<img id="img" src="" style="margin-top: 50px;">
+				<label id="movimiento"></label>
+				<img id="img" src="">
 			</div>
 			<div class="col-sm-6 text-center border" style="height:70%">
-				
-				<label id="containerUlt" style="width:100%"></label>
-				
+				<label id="containerMov" style="width:100%"></label>
 			</div>
-			<label id="ult"></label>
 		</div>
-	</div>
-	<div class="container border" style="height:90%;">
-		<h2 style="text-align: center;">Estado Actual y Acciones</h2>
-		<!-- Ejemplo, mostrar Luz amarilla cuando se haya activado la bomba X cantidad de veces 
-		Luz Roja cuando ya este vacio y alerte que hay que reponer alcohol
-		Luz verde cuando ese con capacidad mayor a tantas veces-->
 	</div>
 
 </body>
-<script src="js/graficoDistancia.js"></script>
 
+<script src="js/graficoMovimiento.js"></script>
 <script type="text/javascript">
-	var u = new JustGage({
-		id: "ult",
-		value: 0,
-		min: 0,
-		max: 100,
-		title: "Ultrasonico"
-	});
 	
-
 
 	///////////ACCIONES
 
-	ultrasonico = 0;
-	cont = 0;
-	
+	movimiento = 0;
 
 	function onMessageArrived(message) {
 
@@ -74,21 +58,16 @@ include("navegacion.php");
 
 		$('#ws').prepend('<br>' + topic + ' = ' + payload + '');
 
-
-		if (message.destinationName == 'Ultrasonico') {
-			ultrasonico = parseInt(message.payloadString);
-			
-			u.refresh(cont);
+		if (message.destinationName == 'Movimiento') {
+			movimiento = parseInt(message.payloadString);
 			
 		}
-		
-		if (ultrasonico == 0) { 
-			document.getElementById("img").src = "img/dispenser1.jpg";
+		if (movimiento == 0) { 
+			document.getElementById("img").src = "img/seguro.png";
 		}
-		if (ultrasonico == 1) { 
-			document.getElementById("img").src = "img/dispenser.jpg";
+		if (movimiento == 1) { 
+			document.getElementById("img").src = "img/alerta.png";
 		}
-		
 
 	};
 
