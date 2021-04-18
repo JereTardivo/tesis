@@ -1,9 +1,7 @@
 <?php
 include("Conexion.php");
 include("navegacion.php");
-$consultaSwitch = "SELECT * FROM registros WHERE nombre = 'Switch' ORDER BY idRegistro DESC LIMIT 1";
-$resultado = mysqli_query($conexion, $consultaSwitch);
-$Switch = mysqli_fetch_assoc($resultado);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,29 +51,45 @@ $Switch = mysqli_fetch_assoc($resultado);
         mqtt.connect(options);
     };
     ///////////ACCIONES
-    estadoSwitch = "<?php echo $Switch["valor"] ?>";
+    
     Bocina = "0";
     Led = "0";
     estadoSemaforo = "Verde";
     
 
-    function OnOff() {
-
-        if (estadoSwitch == "Apagada") {
-            message = new Paho.Message("Encendida");
-            message.destinationName = 'Switch';
-            mqtt.send(message);
-
-        } else if (estadoSwitch == "Encendida") {
-            message = new Paho.Message("Apagada");
-            message.destinationName = 'Switch';
-            mqtt.send(message);
-
-        }
-
-
-    };
     
+    function OnOffB(){
+
+        if (Bocina == "0"){
+          message = new Paho.Message("1");
+          message.destinationName = 'Bocina';
+          mqtt.send(message);
+          
+        }
+        else if (Bocina == "1"){
+          message = new Paho.Message("0");
+          message.destinationName = 'Bocina';
+          mqtt.send(message);
+          
+        }
+  
+      };
+       function OnOffL(){
+
+        if (Led == "0"){
+          message = new Paho.Message("1");
+          message.destinationName = 'Led';
+          mqtt.send(message);
+          
+        }
+        else if (Led == "1"){
+          message = new Paho.Message("0");
+          message.destinationName = 'Led';
+          mqtt.send(message);
+          
+        }
+  
+      };
 
     function myFunction() {
         var x = document.getElementById("Select").value;
@@ -111,20 +125,33 @@ $Switch = mysqli_fetch_assoc($resultado);
         var payload = message.payloadString;
 
         $('#ws').prepend('<br>' + topic + ' = ' + payload + '');
-        if (message.destinationName == 'Switch') { //acá coloco el topic
+        
+        if (message.destinationName == 'Led') { //acá coloco el topic
             //document.getElementById("switch").textContent = message.payloadString ;
-            estadoSwitch = message.payloadString;
-            if (message.payloadString == 'Apagada') {
-                document.getElementById("luz").style.backgroundColor = "#7e7e7e";
-                document.getElementById("switch-label").checked = false;
+            Led = message.payloadString;
+            if (message.payloadString == '0') {
+                document.getElementById("luz3").style.backgroundColor = "#7e7e7e";
+                document.getElementById("switch-label2").checked = false;
             }
-            if (message.payloadString == 'Encendida') {
-                document.getElementById("luz").style.backgroundColor = "blue";
-                document.getElementById("switch-label").checked = true;
+            if (message.payloadString == '1') {
+                document.getElementById("luz3").style.backgroundColor = "green";
+                document.getElementById("switch-label2").checked = true;
             }
 
         }
-        
+        if (message.destinationName == 'Bocina') { 
+            
+            Bocina = message.payloadString;
+            if (message.payloadString == '0') {
+                document.getElementById("luz1").src = "img/bocinano.jpg";
+                document.getElementById("switch-label1").checked = false;
+            }
+            if (message.payloadString == '1') {
+                document.getElementById("luz1").src = "img/bocina.jpg";
+                document.getElementById("switch-label1").checked = true;
+            }
+            
+        }
         if (message.destinationName == 'Semaforo') { //acá coloco el topic
             estadoSemaforo = message.payloadString;
             if (message.payloadString == 'Rojo') {
@@ -142,7 +169,16 @@ $Switch = mysqli_fetch_assoc($resultado);
 
         }
         
-       
+        if (message.destinationName == 'Movimiento') { //acá coloco el topic
+            if (message.payloadString == '1') {
+               
+                document.getElementById("color").style.backgroundColor = "red";
+            }
+            if (message.payloadString == '0') {
+                
+                document.getElementById("color").style.backgroundColor = "green";
+            }
+        }
     };
 
     $(document).ready(function() {
@@ -156,31 +192,34 @@ $Switch = mysqli_fetch_assoc($resultado);
             <div class="col-sm-3 text-center" style="margin-left: 5%;">
                 <br>
                 <h5>Interruptor Alarma Luminica</h5>
-                <!--SWITCH INTERNO -->
-                <label class="switch-button">
-                    <input type="checkbox" name="switch-button" id="switch-label" class="switch-button__checkbox" onclick='OnOff()' <?php if ($Switch["valor"] === "Encendida") { ?> checked <?php } ?>>
-                    <label for="switch-label" class="switch-button__label"></label>
+                
+                <!--SWITCH DE LED VERDE -->
+                <label class="switch-button" >
+                    
+                     <input type="checkbox" name="switch-button2" id="switch-label2" class="switch-button__checkbox" onclick='OnOffL()' >
+                    <label for="switch-label2" class="switch-button__label"></label>
                 </label>
-
-                <label id="luz" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px; 
-                   <?php if ($Switch["valor"] === "Apagada") { ?> background: #7e7e7e; <?php } ?>
-                   <?php if ($Switch["valor"] === "Encendida") { ?> background: blue; <?php } ?>"></label>
+                <label id="luz3" style="width: 50px; height:50px;border-radius: 50%; margin-left: 50px;"></label>
                 <br>
                 
+                <br>
             </div>
             <!--SWITCH DE SEMAFORO -->
             <div class="col-sm-3 text-center" style="margin-left: 5%;">
                 <br>
-                <h5>Establecer Criticidad Luminica</h5>
-                <select id="Select" onchange="myFunction()">
-                    <option></option>
-                    <option value="Rojo" style="background-color: red;">PELIGRO</option>
-                    <option value="Amarillo" style="background-color: yellow;">CUIDADO</option>
-                    <option value="Verde" style="background-color: green;">NORMAL</option>
-                </select>
+                <h5>Led en semaforo</h5>
+                
                 <label id="color" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px"></label>
             </div>
-            
+            <!--SWITCH DE ALARMA -->
+            <label class="switch-button" style="margin-top: 50px; ">
+                    
+                     <input type="checkbox" name="switch-button1" id="switch-label1" class="switch-button__checkbox" onclick='OnOffB()' >
+                    <label for="switch-label1" class="switch-button__label"></label>
+                </label>
+                <img id="luz1" style="width: 100px; height:100px; margin-top: 50px; ">
+                
+                <br>
         </div>
         
     </div>
