@@ -17,15 +17,17 @@ if ($fecha == null) {
 
 <body>
 	
-	<a href="datosingreso.php" class="btn btn-primary" style="float: left; margin: 50px;">Volver</a>
-	<table class="table table-bordered table-striped" style="width:85%;">
+	
+	<table class="table table-bordered table-striped" style="width:100%;">
 
 		<tr align="center">
 
 			<th>id</th>
 			<th>chipid</th>
+			<th>lugar</th>
 			<th>fecha</th>
 			<th>UID</th>
+			<th>Nombre</th>
 
 		</tr>
 		<?php
@@ -34,9 +36,28 @@ if ($fecha == null) {
 
 			<tr align="center">
 				<td><?php echo $filas["id"] ?></td>
-				<td><a href="ubicacion.php?chipid=<?php echo $filas["chipid"] ?>"><?php echo $filas["chipid"] ?></td>
+				<td><?php echo $filas["chipid"] ?></td>
+					<td>
+					<?php 
+					$ubi = $filas["chipid"];
+					$consulta1 = "SELECT ubicacion FROM ubicacion WHERE chipid = '$ubi'";
+					$resultado1 = mysqli_query($conexion,$consulta1);
+					$dev = mysqli_fetch_row($resultado1);
+					echo $dev[0]; 
+					?>
+					</td>
+					
 				<td><?php echo $filas["fecha"] ?></td>
-				<td><a href="usuarios.php?UID=<?php echo $filas["UID"] ?>"><?php echo $filas["UID"] ?></a></td>
+				<td><?php echo $filas["UID"] ?></td>
+					<td>
+					<?php 
+					$us = $filas["UID"];
+					$consulta1 = "SELECT usuario FROM usuarios WHERE UID = '$us'";
+					$resultado1 = mysqli_query($conexion,$consulta1);
+					$dev = mysqli_fetch_row($resultado1);
+					echo $dev[0]; 
+					?>
+					</td>
 
 			</tr>
 		<?php

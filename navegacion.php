@@ -37,7 +37,7 @@ session_abort();
             <li class="drop-down"><a href="#">Movimiento</a>
               <ul>
                 <li><a href="iMovimiento.php">Indicadores</a></li>
-                <li><a href="accionesTemperatura.php">Acciones</a></li>
+                <li><a href="accionesMovimiento.php">Acciones</a></li>
                 <li><a href="registrosTemperatura.php">Registros</a></li>
               </ul>
             </li>

@@ -36,9 +36,13 @@
 }
 
 .switch-button .switch-button__checkbox:checked+.switch-button__label {
-    background-color: var(--color-blue);
+    background-color: var(--color-green);
 }
 
+
 .switch-button .switch-button__checkbox:checked+.switch-button__label:before {
+    transform: translateX(2rem);
+}
+.switch-button2 .switch-button__checkbox:checked+.switch-button__label:before {
     transform: translateX(2rem);
 }
