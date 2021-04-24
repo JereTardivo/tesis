@@ -125,15 +125,15 @@ include("navegacion.php");
     <div class="container border" style="height: 30%;">
         <div class="row vh-100 justify-content-around">
             <div class="col-sm-3 text-center" style="margin-left: 5%;">
-                <br>
-                <h5>Interruptor Alarma Luminica</h5>
-                <label class="switch-button">
-                    <input type="checkbox" name="switch-button" id="switch-label" class="switch-button__checkbox" onclick='OnOff()' <?php if ($Switch["valor"] === "Encendida") { ?> checked <?php } ?>>
-                    <label for="switch-label" class="switch-button__label"></label>
-                </label>
+                    <br>
+                    <h5>Interruptor ventilador</h5>
+                    <label class="switch-button">
+                        <input type="checkbox" name="switch-button" id="switch-label" class="switch-button__checkbox" onclick='OnOff()' <?php if ($Switch["valor"] === "Encendida") { ?> checked <?php } ?>>
+                        <label for="switch-label" class="switch-button__label"></label>
+                    </label>
 
-                <label id="luz" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px;"></label>
-                <br>
+                    <label id="luz" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px;"></label>
+                    <br>
             </div>
             
         </div>
