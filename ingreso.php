@@ -55,7 +55,9 @@
             </div>
         </div>
     </section>
-    <section id="hero" style="height:fit-content;"></section>
+    <section id="hero" style="height:fit-content;">
+    <br>
+    </section>
     
 
 
