@@ -10,13 +10,22 @@ if ($varsesion == null || $varsesion = '') {
 session_abort();
 ?>
 
-<link href="css/style.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-<script src ="vendor/aos/aos.js"> </script>
+<script src="vendor/aos/aos.js"> </script>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="js/main.js"></script>
+
+
+
+<link href="img/favicon.png" rel="icon">
+<link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="vendor/icofont/icofont.min.css" rel="stylesheet">
+<link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="vendor/venobox/venobox.css" rel="stylesheet">
+<link href="vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 
 
 <header id="header" class="fixed-top">
@@ -55,7 +64,6 @@ session_abort();
                 <li><a href="registrosGas.php">Registros</a></li>
               </ul>
             </li>
-           <!-- Contador de sonidos para rutputa de alguna maquina o algo asi --> 
             <li class="drop-down"><a href="#">Sonido</a>
               <ul>
                 <li><a href="iSonido.php">Indicadores</a></li>
@@ -96,8 +104,6 @@ session_abort();
         </li>
       </ul>
     </nav>
-
   </div>
 </header>
 <div style="width: 100%; height: 75px; background: #37517e;"></div>
-

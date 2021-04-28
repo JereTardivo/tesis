@@ -6,24 +6,24 @@ $fecha = $_POST['fecha'];
 
 //CONSULTA PARA TABLA
 if ($fecha == '1') {
-	$consulta = "SELECT DISTINCT fecha , valor  FROM registros WHERE nombre = '/R501/temperatura' ORDER BY FECHA DESC";
-	$consulta1 = "SELECT DISTINCT UNIX_TIMESTAMP(FECHA)  as fecha , valor FROM registros WHERE nombre = '/R501/temperatura' group by 1";
+	$consulta = "SELECT DISTINCT fecha , valor  FROM registros WHERE nombre = 'Temperatura' ORDER BY FECHA DESC";
+	$consulta1 = "SELECT DISTINCT UNIX_TIMESTAMP(FECHA)  as fecha , valor FROM registros WHERE nombre = 'Temperatura' ORDER BY FECHA";
 }
 if ($fecha == '2') {
-	$consulta = "SELECT DISTINCT fecha,valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') = curdate() AND nombre = '/R501/temperatura' ORDER BY FECHA DESC";
-	$consulta1 = "SELECT DISTINCT UNIX_TIMESTAMP(FECHA)  as fecha , valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') = curdate() AND nombre = '/R501/temperatura'";
+	$consulta = "SELECT DISTINCT fecha,valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') = curdate() AND nombre = 'Temperatura' ORDER BY FECHA DESC";
+	$consulta1 = "SELECT DISTINCT UNIX_TIMESTAMP(FECHA)  as fecha , valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') = curdate() AND nombre = 'Temperatura' ORDER BY FECHA";
 }
 if ($fecha == '3') {
-	$consulta = "SELECT DISTINCT fecha,valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 7 DAY)  and curdate() AND nombre = '/R501/temperatura' ORDER BY FECHA DESC";
-	$consulta1 = "SELECT DISTINCT UNIX_TIMESTAMP(FECHA)  as fecha , valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 7 DAY)  and curdate() AND nombre = '/R501/temperatura'";
+	$consulta = "SELECT DISTINCT fecha,valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 7 DAY)  and curdate() AND nombre = 'Temperatura' ORDER BY FECHA DESC";
+	$consulta1 = "SELECT DISTINCT UNIX_TIMESTAMP(FECHA)  as fecha , valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 7 DAY)  and curdate() AND nombre = 'Temperatura' ORDER BY FECHA";
 }
 if ($fecha == '4') {
-	$consulta = "SELECT DISTINCT fecha,valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 15 DAY) and curdate()  AND nombre = '/R501/temperatura' ORDER BY FECHA DESC";
-	$consulta1 = "SELECT DISTINCT UNIX_TIMESTAMP(FECHA)  as fecha , valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 15 DAY) and curdate()  AND nombre = '/R501/temperatura'";
+	$consulta = "SELECT DISTINCT fecha,valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 15 DAY) and curdate()  AND nombre = 'Temperatura' ORDER BY FECHA DESC";
+	$consulta1 = "SELECT DISTINCT UNIX_TIMESTAMP(FECHA)  as fecha , valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 15 DAY) and curdate()  AND nombre = 'Temperatura' ORDER BY FECHA";
 }
 if ($fecha == '5') {
-	$consulta = "SELECT DISTINCT fecha,valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 30 DAY)  and curdate() AND nombre = '/R501/temperatura' ORDER BY FECHA DESC";
-	$consulta1 = "SELECT DISTINCT UNIX_TIMESTAMP(FECHA)  as fecha , valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 30 DAY)  and curdate() AND nombre = '/R501/temperatura'";
+	$consulta = "SELECT DISTINCT fecha,valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 30 DAY)  and curdate() AND nombre = 'Temperatura' ORDER BY FECHA DESC";
+	$consulta1 = "SELECT DISTINCT UNIX_TIMESTAMP(FECHA)  as fecha , valor FROM registros WHERE DATE_FORMAT(fecha, '%Y-%m-%d') between (curdate()- INTERVAL 30 DAY)  and curdate() AND nombre = 'Temperatura' ORDER BY FECHA";
 }
 
 ?>
@@ -74,6 +74,8 @@ if ($fecha == '5') {
 			}
 			?>
 		</table>
+		<br>
+		<br>
 		<div id="containerGraph" style="text-align:center;"></div>
 	</div>
 
@@ -85,7 +87,7 @@ if ($fecha == '5') {
 			zoomType: 'x'
 		},
 		title: {
-			text: 'Resgistros de Temperatura Promedio en el Tiempo'
+			text: 'Registros de Temperatura en el Tiempo'
 		},
 		subtitle: {
 			text: document.ontouchstart === undefined ?
@@ -97,11 +99,6 @@ if ($fecha == '5') {
 				text: 'Tiempo'
 			},
 			type: 'datetime',
-			labels: {
-				formatter: function() {
-					return Highcharts.dateFormat('%b/%e/%Y', this.value);
-				}
-			}
 		},
 		yAxis: {
 			title: {
@@ -146,7 +143,7 @@ if ($fecha == '5') {
 				$resultado2 = mysqli_query($conexion, $consulta1);
 				while ($filas1 = mysqli_fetch_assoc($resultado2)) {
 				?> {
-						x: <?php echo $filas1["fecha"]*1000-10800000; ?>,
+						x: <?php echo $filas1["fecha"] * 1000 - 10800000; ?>,
 						y: <?php echo $filas1["valor"]; ?>
 					},
 				<?php } ?>
