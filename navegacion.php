@@ -3,6 +3,8 @@ session_start();
 error_reporting(0);
 $varsesion = $_SESSION['usuario'];
 $usuario = $_SESSION['usuario'];
+$nivel = $_SESSION['nivel'];
+
 if ($varsesion == null || $varsesion = '') {
   header("Location: ingreso.php");
   die();
@@ -32,41 +34,50 @@ session_abort();
     <nav class="nav-menu d-none d-lg-block">
       <ul>
         <li class="active"><a href="general.php">Home</a></li>
+        <?php if ($nivel !== 'operario') { ?>
         <li class="drop-down"><a href="#">Seguridad</a>
           <ul>
             <li class="drop-down"><a href="#">Temperatura</a>
               <ul>
                 <li><a href="iTemperatura.php">Indicadores</a></li>
+                <?php if ($nivel === 'admin') { ?>
                 <li><a href="accionesTemperatura.php">Acciones</a></li>
+                <?php } ?> 
                 <li><a href="registrosTemperatura.php">Registros</a></li>
               </ul>
             </li>
             <li class="drop-down"><a href="#">Movimiento</a>
               <ul>
+                
                 <li><a href="iMovimiento.php">Indicadores</a></li>
+                <?php if ($nivel === 'admin') { ?>
                 <li><a href="accionesMovimiento.php">Acciones</a></li>
+                <?php } ?> 
                 <li><a href="registrosTemperatura.php">Registros</a></li>
               </ul>
             </li>
             <li class="drop-down"><a href="#">Humedad</a>
               <ul>
                 <li><a href="iHumedad.php">Indicadores</a></li>
+                <?php if ($nivel === 'admin') { ?>
                 <li><a href="accionesHumedad.php">Acciones</a></li>
+                <?php } ?> 
                 <li><a href="registrosHumedad.php">Registros</a></li>
               </ul>
             </li>
             <li class="drop-down"><a href="#">Gas</a>
               <ul>
                 <li><a href="iGas.php">Indicadores</a></li>
+                <?php if ($nivel === 'admin') { ?>
                 <li><a href="accionesGas.php">Acciones</a></li>
+                <?php } ?> 
                 <li><a href="registrosGas.php">Registros</a></li>
               </ul>
             </li>
             <li class="drop-down"><a href="#">Sonido</a>
               <ul>
                 <li><a href="iSonido.php">Indicadores</a></li>
-                <li><a href="#">Acciones</a></li>
-                <li><a href="#">Registros</a></li>
+                
               </ul>
             </li>
           </ul>
@@ -76,6 +87,7 @@ session_abort();
             <li><a href="dispenser.php">Dispenser</a></li>
           </ul>
         </li>
+        <?php } ?> 
         <li class="drop-down"><a href="#">Usuarios</a>
           <ul>
             <li class="drop-down"><a href="#">Tablas</a>

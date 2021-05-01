@@ -112,7 +112,7 @@ $Switch = mysqli_fetch_assoc($resultado);
 
         $('#ws').prepend('<br>' + topic + ' = ' + payload + '');
         if (message.destinationName == 'Switch') { //acá coloco el topic
-            //document.getElementById("switch").textContent = message.payloadString ;
+            
             estadoSwitch = message.payloadString;
             if (message.payloadString == 'Apagada') {
                 document.getElementById("luz").style.backgroundColor = "#7e7e7e";
