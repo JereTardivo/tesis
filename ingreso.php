@@ -24,30 +24,30 @@
 </head>
 
 <body>
-
+    <div class="error">
+        <span>Datos de Ingreso Invalidos, intente nuevamente por favor.</span>
+    </div>
     <header id="header" class="fixed-top ">
         <div class="container d-flex align-items-center">
             <h1 class="logo mr-auto"><a href="index.html">MT Security</a></h1>
         </div>
     </header>
-
-
     <section id="hero" class="d-flex align-items-center">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
                     <div align="center" id="formulario-act">
-                        <form action="validar.php" method="post">
+                        <form action="" id="form-login">
                             <h1>Ingreso</h1>
                             <label style="color:white"><b>Usuario</b></label>
                             <br>
-                            <input type="text" name="usuario" id="datos-ingreso">
+                            <input type="text" name="usuario" placeholder="User" required>
                             <br><br>
                             <label style="color:white"><b>Contraseña</b></label>
                             <br>
-                            <input type="password" name="clave" id="datos-ingreso">
+                            <input type="password" name="clave" placeholder="****" required>
                             <br><br>
-                            <input type="submit" name="ingresar" value="Ingresar" class="btn-get-started scrollto">
+                            <input type="submit" value="Ingresar" class="btn-get-started">
                         </form>
 
                     </div>
@@ -60,17 +60,14 @@
         </div>
     </section>
     <section id="hero" style="height:fit-content;">
-    <br>
+        <br>
     </section>
-    
-
-
 
     <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
     <div id="preloader"></div>
 
-
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/validarUser.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery.easing/jquery.easing.min.js"></script>
     <script src="vendor/waypoints/jquery.waypoints.min.js"></script>
@@ -79,8 +76,6 @@
     <script src="vendor/owl.carousel/owl.carousel.min.js"></script>
     <script src="vendor/aos/aos.js"></script>
     <script src="js/main.js"></script>
-
-
 
 </body>
 
