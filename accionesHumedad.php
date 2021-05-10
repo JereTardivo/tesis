@@ -1,7 +1,9 @@
 <?php
 include("Conexion.php");
 include("navegacion.php");
-
+$consulta = "SELECT * FROM registros WHERE nombre = 'Rele1' ORDER BY idRegistro DESC LIMIT 1";
+$resultado = mysqli_query($conexion, $consulta);
+$Rele1 = mysqli_fetch_assoc($resultado);
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,7 +53,7 @@ include("navegacion.php");
         mqtt.connect(options);
     };
     ///////////ACCIONES
-    estadoRele = "0";
+    estadoRele = "<?php echo $Rele1["valor"] ?>";
 
     estadoSemafoto = "";
 
@@ -128,11 +130,12 @@ include("navegacion.php");
                     <br>
                     <h5>Interruptor ventilador</h5>
                     <label class="switch-button">
-                        <input type="checkbox" name="switch-button" id="switch-label" class="switch-button__checkbox" onclick='OnOff()' <?php if ($Switch["valor"] === "Encendida") { ?> checked <?php } ?>>
+                        <input type="checkbox" name="switch-button" id="switch-label" class="switch-button__checkbox" onclick='OnOff()' <?php if ($Rele1["valor"] === "1") { ?> checked <?php } ?>>
                         <label for="switch-label" class="switch-button__label"></label>
                     </label>
 
-                    <label id="luz" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px;"></label>
+                    <label id="luz" style="width: 50px; height: 50px;border-radius: 50%; margin-left: 50px; <?php if ($Rele1["valor"] === "0") { ?> background: #7e7e7e; <?php } ?>
+                   <?php if ($Rele1["valor"] === "1") { ?> background: blue; <?php } ?>"></label>
                     <br>
             </div>
             

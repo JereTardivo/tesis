@@ -1,6 +1,9 @@
 <?php
 include("Conexion.php");
 include("navegacion.php");
+$consulta = "SELECT COUNT(*) FROM registros WHERE nombre = 'Ultrasonico'";
+$resultado = mysqli_query($conexion, $consulta);
+$ultrasonico = mysqli_fetch_assoc($resultado);
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,24 +31,25 @@ include("navegacion.php");
 		<br>
 		<h2 style="text-align: center;">Medidor de Dispenser de Alcohol</h2>
 		<div class="row vh-100 justify-content-around">
-			<div class="col-sm-3 text-center border" style="height:50%; margin-left:5%; margin-top:5%">
+			<div class="col-sm-2 text-center border" style="height:50%; margin-left:5%; margin-top:5%">
 				
 				<img id="img" src="" style="margin-top: 50px;">
 			</div>
-			<div class="col-sm-6 text-center border" style="height:70%">
+			<div class="col-sm-5 text-center border" style="height:70%">
 				
 				<label id="containerUlt" style="width:100%"></label>
 				
 			</div>
-			<label id="ult"></label>
+			<div class="col-sm-2 text-center border" style="height:70%">
+				
+				<label id="ult"></label>
+				
+			</div>
+			
+			
 		</div>
 	</div>
-	<div class="container border" style="height:90%;">
-		<h2 style="text-align: center;">Estado Actual y Acciones</h2>
-		<!-- Ejemplo, mostrar Luz amarilla cuando se haya activado la bomba X cantidad de veces 
-		Luz Roja cuando ya este vacio y alerte que hay que reponer alcohol
-		Luz verde cuando ese con capacidad mayor a tantas veces-->
-	</div>
+	
 
 </body>
 <script src="js/graficoDistancia.js"></script>
@@ -53,7 +57,7 @@ include("navegacion.php");
 <script type="text/javascript">
 	var u = new JustGage({
 		id: "ult",
-		value: 0,
+		value: "<?php echo $ultrasonico ["COUNT(*)"]; ?>",
 		min: 0,
 		max: 100,
 		title: "Ultrasonico"
@@ -64,7 +68,7 @@ include("navegacion.php");
 	///////////ACCIONES
 
 	ultrasonico = 0;
-	cont = 0;
+	cont = <?php echo $ultrasonico ["COUNT(*)"]; ?>;
 	
 
 	function onMessageArrived(message) {
@@ -75,18 +79,19 @@ include("navegacion.php");
 		$('#ws').prepend('<br>' + topic + ' = ' + payload + '');
 
 
-		if (message.destinationName == 'Ultrasonico') {
-			ultrasonico = parseInt(message.payloadString);
-			
-			u.refresh(cont);
-			
-		}
-		
-		if (ultrasonico == 0) { 
-			document.getElementById("img").src = "img/dispenser1.jpg";
-		}
-		if (ultrasonico == 1) { 
-			document.getElementById("img").src = "img/dispenser.jpg";
+			if (message.destinationName == 'Ultrasonico') {
+				ultrasonico = parseInt(message.payloadString);
+				
+
+			if (ultrasonico == 0) { 
+				document.getElementById("img").src = "img/dispenser1.jpg";
+
+				u.refresh(cont);
+			}
+			if (ultrasonico == 1) { 
+				document.getElementById("img").src = "img/dispenser.jpg";
+				cont = cont + 0.5;
+			}
 		}
 		
 

@@ -1,6 +1,9 @@
 <?php
 include("Conexion.php");
 include("navegacion.php");
+$estado = "SELECT * FROM registros WHERE nombre = 'Led' ORDER BY idRegistro DESC LIMIT 1";
+$resultado = mysqli_query($conexion, $estado);
+$led = mysqli_fetch_assoc($resultado);
 
 ?>
 <!DOCTYPE html>
@@ -53,7 +56,7 @@ include("navegacion.php");
     ///////////ACCIONES
     
     Bocina = "0";
-    Led = "0";
+    Led = "<?php echo $led["valor"] ?>";
     estadoSemaforo = "Verde";
     
 
@@ -125,9 +128,7 @@ include("navegacion.php");
         var payload = message.payloadString;
 
         $('#ws').prepend('<br>' + topic + ' = ' + payload + '');
-        
-        if (message.destinationName == 'Led') { //acá coloco el topic
-            //document.getElementById("switch").textContent = message.payloadString ;
+        if (message.destinationName == 'Led') { 
             Led = message.payloadString;
             if (message.payloadString == '0') {
                 document.getElementById("luz3").style.backgroundColor = "#7e7e7e";
@@ -192,14 +193,17 @@ include("navegacion.php");
             <div class="col-sm-3 text-center" style="margin-left: 5%;">
                 <br>
                 <h5>Interruptor Alarma Luminica</h5>
+
                 
                 <!--SWITCH DE LED VERDE -->
                 <label class="switch-button" >
                     
-                     <input type="checkbox" name="switch-button2" id="switch-label2" class="switch-button__checkbox" onclick='OnOffL()' >
+                     <input type="checkbox" name="switch-button2" id="switch-label2" class="switch-button__checkbox" onclick='OnOffL()' <?php if ($led["valor"] === "1") { ?> checked <?php } ?>>
                     <label for="switch-label2" class="switch-button__label"></label>
                 </label>
-                <label id="luz3" style="width: 50px; height:50px;border-radius: 50%; margin-left: 50px;"></label>
+                <label id="luz3" style="width: 50px; height:50px;border-radius: 50%; margin-left: 50px;
+                    <?php if ($led["valor"] === "0") { ?> background: #7e7e7e; <?php } ?>
+                   <?php if ($led["valor"] === "1") { ?> background: green; <?php } ?>"></label>
                 <br>
                 
                 <br>
