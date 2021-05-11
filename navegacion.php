@@ -30,7 +30,7 @@ session_abort();
 
 <header id="header" class="fixed-top">
   <div class="container d-flex align-items-center">
-    <h1 class="logo mr-auto"><a href="general.php">MT Security</a></h1>
+    <h1 class="logo mr-auto"><a href="general.php">MT Seguridad</a></h1>
     <nav class="nav-menu d-none d-lg-block">
       <ul>
         <li class="active"><a href="general.php">Home</a></li>
