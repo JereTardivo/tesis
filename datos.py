@@ -17,8 +17,8 @@ class SensorBase(object):
     def guardar(self):
 
         config = {
-            'user': 'root',
-            'password': '',
+            'user': 'admin',
+            'password': '1234',
             'host': 'localhost',
             'database': 'tesis',
             'raise_on_warnings': True,
@@ -55,6 +55,6 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 print("Esperando...")
-client.connect("192.168.1.27", 1883, 60)
+client.connect("192.168.100.16", 1883, 60)
 
 client.loop_forever()
